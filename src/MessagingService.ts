@@ -25,6 +25,14 @@ export class Student {
     }
 }
 
+export class MyInputEvent {
+    public name: string = "default"
+
+    public constructor(init?: Partial<MyInputEvent>) {
+        Object.assign(this, init);
+    }
+}
+
 export class MessagingService {
     private message$: Subject<IMessage>;
     static myInstance: MessagingService;

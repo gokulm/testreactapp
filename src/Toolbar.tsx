@@ -8,9 +8,12 @@ const messagingService = MessagingService.getInstance();
 function Toolbar(props: any) {
 
     useEffect(() => {
-        messagingService.of(Student).subscribe(result => {
+        let studentSubscription = messagingService.of(Student).subscribe(result => {
           console.log(result);
         });
+        return () => {
+            studentSubscription.unsubscribe();
+        };
       });
 
     return (

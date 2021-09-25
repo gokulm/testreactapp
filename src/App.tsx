@@ -5,7 +5,7 @@ import Welcome from './Welcome';
 import { ThemeContext, themes } from './theme-context';
 import MyInput, { MyInputHandles } from './MyInput';
 import Toolbar from './Toolbar';
-import { MessagingService, Person, Student } from './MessagingService';
+import { MessagingService, MyInputEvent, Person, Student } from './MessagingService';
 
 function App() {
   const [theme, setTheme] = useState(themes.dark);
@@ -18,9 +18,12 @@ function App() {
       myInputRef.current.focus();
     }
 
-    messagingService.of(Person).subscribe(result => {
+    let personSubscription = messagingService.of(Person).subscribe(result => {
       console.log(result);
     });
+    return () => {
+      personSubscription.unsubscribe();
+    };
   });
 
   function toggleTheme() {
@@ -28,6 +31,9 @@ function App() {
     setTheme(theme === themes.dark ? themes.light : themes.dark);
     if (myInputRef.current) {
       myInputRef.current.test();
+
+      let myInput = new MyInputEvent({ name: "My input event from parent" });
+      messagingService.publish(myInput);
     }
 
     messagingService.publish(student1);
