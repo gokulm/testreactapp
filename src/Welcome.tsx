@@ -13,7 +13,6 @@ const Welcome = (props: IProps) => {
   return (
 
     <div>
-      {/* <ul>{listItems}</ul> */}
       Welcome {props.name}
       <br />
       <span>background: {themeContext.background} foreground: {themeContext.foreground} </span>
