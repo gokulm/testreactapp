@@ -12,6 +12,7 @@ function App() {
   const myInputRef = useRef<MyInputHandles>(null);
   const messagingService = MessagingService.getInstance();
   const student1 = new Student({ name: "John student from parent" });
+  const [person, setPerson] = useState(new Person());
 
   useEffect(() => {
     if (myInputRef.current) {
@@ -20,6 +21,7 @@ function App() {
 
     let personSubscription = messagingService.of(Person).subscribe(result => {
       console.log(result);
+      setPerson(result);
     });
     return () => {
       personSubscription.unsubscribe();
@@ -63,6 +65,11 @@ function App() {
           <Toolbar changeTheme={() => toggleTheme()} onPublish={(p: any) => parameterizedMethod("test parameter - " + p)} />
           <MyInput ref={myInputRef} />
         </header>
+
+
+        <div>
+                Person: {person.name}
+            </div>
       </div>
     </ThemeContext.Provider>
   );
