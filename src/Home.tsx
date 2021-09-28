@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { themes } from './theme-context';
+import { ThemeContext, themes } from './theme-context';
 import MyInput, { MyInputHandles } from './MyInput';
 import Toolbar from './Toolbar';
 import { ChangeThemeCommand, MessagingService, MyInputEvent, Person, Student } from './MessagingService';
@@ -60,6 +60,7 @@ const Home = (props: IProps) => {
     }
 
     return (
+        <ThemeContext.Provider value={theme}>
         <div className="App">
             <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
@@ -74,6 +75,7 @@ const Home = (props: IProps) => {
                 Person: {person.name}
             </div>
         </div>
+        </ThemeContext.Provider>
     );
 };
 

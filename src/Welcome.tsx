@@ -7,13 +7,14 @@ interface IProps {
 const Welcome = (props: IProps) => {
   const themeContext = useContext(ThemeContext)
   const numbers = [1, 2, 3, 4, 5];
-  const listItems = numbers.map((number) =>
-    <li>{number}</li>
-  );
   return (
 
     <div>
       Welcome {props.name}
+
+      {numbers.map((number) =>
+        <li>{number}</li> 
+      )}
       <br />
       <span>background: {themeContext.background} foreground: {themeContext.foreground} </span>
 

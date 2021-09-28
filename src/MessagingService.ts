@@ -64,7 +64,7 @@ export class MessagingService {
     }
 
     public of<T>(messageType: { new(...args: any[]): T }): Observable<T> {
-        const channel = (<any>messageType).name;
+        const channel = (messageType as any).name;
         return this.message$.pipe(
             filter((m: IMessage) => m.channel === channel),
             map((m: IMessage) => m.data)

@@ -1,10 +1,6 @@
 import { useContext } from "react";
 import { ThemeContext } from "./theme-context";
 
-interface IProps {
-  name: String;
-}
-
 const ThemedButton = (props: any) => {
   let theme = useContext(ThemeContext);
   return (

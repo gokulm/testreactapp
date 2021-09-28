@@ -1,7 +1,5 @@
-import { useState } from 'react';
 import './App.css';
 import Welcome from './Welcome';
-import { ThemeContext, themes } from './theme-context';
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,10 +10,8 @@ import DynamicForm from './DynamicForm';
 import Home from './Home';
 
 function App() {
-  const [theme, setTheme] = useState(themes.dark);
 
   return (
-    <ThemeContext.Provider value={theme}>
       <div className="App">
 
         <Router>
@@ -45,7 +41,6 @@ function App() {
 
         </Router>
       </div>
-    </ThemeContext.Provider>
   );
 }
 

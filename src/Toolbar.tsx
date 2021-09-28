@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
-import { ChangeThemeCommand, MessagingService, Person, Student } from './MessagingService';
+import { ChangeThemeCommand, MessagingService, Student } from './MessagingService';
 import { themes } from './theme-context';
 import ThemedButton from './ThemedButton';
-const person1 = new Person({ name: "John from child" });
-const person2 = new Person({ name: "Smith from child" });
 const messagingService = MessagingService.getInstance();
 
 function Toolbar(props: any) {

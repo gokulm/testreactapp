@@ -1,5 +1,5 @@
 import { forwardRef, ForwardRefRenderFunction, useEffect, useImperativeHandle, useRef } from "react";
-import { MessagingService, MyInputEvent, Student } from "./MessagingService";
+import { MessagingService, MyInputEvent } from "./MessagingService";
 
 export interface MyInputHandles {
   focus(): void;
