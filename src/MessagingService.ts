@@ -1,4 +1,5 @@
 import { filter, map, Observable, Subject } from "rxjs";
+import { themes } from './theme-context';
 
 export interface IMessage {
     channel: string;
@@ -21,6 +22,14 @@ export class Student {
     public age: number = 0;
 
     public constructor(init?: Partial<Student>) {
+        Object.assign(this, init);
+    }
+}
+
+export class ChangeThemeCommand {
+    public theme: any = themes.dark;
+
+    public constructor(init?: Partial<ChangeThemeCommand>) {
         Object.assign(this, init);
     }
 }

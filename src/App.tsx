@@ -5,7 +5,7 @@ import Welcome from './Welcome';
 import { ThemeContext, themes } from './theme-context';
 import MyInput, { MyInputHandles } from './MyInput';
 import Toolbar from './Toolbar';
-import { MessagingService, MyInputEvent, Person, Student } from './MessagingService';
+import { ChangeThemeCommand, MessagingService, MyInputEvent, Person, Student } from './MessagingService';
 
 function App() {
   const [theme, setTheme] = useState(themes.dark);
@@ -26,6 +26,18 @@ function App() {
     return () => {
       personSubscription.unsubscribe();
     };
+
+  });
+
+  useEffect(() => {
+    let changeThemeSubscription = messagingService.of(ChangeThemeCommand).subscribe(result => {
+      console.log(result);
+      setTheme(result.theme);
+    });
+    return () => {
+      changeThemeSubscription.unsubscribe();
+    };
+
   });
 
   function toggleTheme() {
