@@ -1,13 +1,9 @@
-import schema1 from './schemas/schema1.json';
-import schema2 from './schemas/schema2.json';
-import data from './data.json';
-import './DynamicForm.css'
+import schema1 from '../schemas/schema1.json';
+import data from '../data.json';
+import './Layout.css'
 
-interface IProps {
-  name: String;
-}
 
-interface IElement {
+export interface IElement {
   type: string,
   class: string,
   children: IElement[],
@@ -18,7 +14,7 @@ interface IElement {
 }
 
 
-const renderLayout = (element: IElement) => {
+export const renderLayout = (element: IElement) => {
   console.log(element);
   let jsonString = JSON.parse(JSON.stringify(data));
 
@@ -43,26 +39,15 @@ const renderLayout = (element: IElement) => {
   }
 }
 
-const DynamicForm = (props: IProps) => {
+const Layout1 = (props: any) => {
   return (
-
-    <>
-      <div className="wrapper">
-        {
-          schema1.layout.map(m =>
-            renderLayout(m))
-        }
-      </div>
-
-      <form className="myForm">
-        {
-          schema2.layout.map(m =>
-            renderLayout(m))
-        }
-      </form>
-
-    </>
+    <div className="wrapper">
+      {
+        schema1.layout.map(m =>
+          renderLayout(m))
+      }
+    </div>
   );
 };
 
-export default DynamicForm;
+export default Layout1;

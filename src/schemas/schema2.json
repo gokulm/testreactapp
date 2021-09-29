@@ -1,0 +1,72 @@
+{
+    "layout": [
+        {
+            "type": "div",
+            "class": "message",
+            "dataKey": "",
+            "children": [
+                {
+                    "type": "label",
+                    "class": "",
+                    "dataKey": "",
+                    "data": "Message",
+                    "children": []
+                },
+                {
+                    "type": "textarea",
+                    "class": "",
+                    "dataKey": "",
+                    "data": "",
+                    "children": []
+                }
+            ]
+        },
+        {
+            "type": "div",
+            "class": "contact",
+            "dataKey": "",
+            "children": [
+                {
+                    "type": "label",
+                    "class": "",
+                    "dataKey": "",
+                    "data": "Name",
+                    "for": "name",
+                    "children": []
+                },
+                {
+                    "type": "text",
+                    "class": "",
+                    "dataKey": "",
+                    "data": "",
+                    "id": "name",
+                    "children": []
+                },
+                 {
+                    "type": "label",
+                    "class": "",
+                    "dataKey": "",
+                    "for": "townborn",
+                    "data": "Town you were born in",
+                    "children": []
+                },
+                {
+                    "type": "text",
+                    "class": "",
+                    "dataKey": "",
+                    "data": "",
+                    "id": "townborn",
+                    "children": []
+                },
+                {
+                    "type": "button",
+                    "class": "",
+                    "dataKey": "",
+                    "data": "",
+                    "children": []
+                }
+            ]
+        }
+    ]
+}
+

@@ -6,41 +6,48 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import DynamicForm from './DynamicForm';
 import Home from './Home';
+import Layout1 from './layouts/Layout1';
+import Layout2 from './layouts/Layout2';
 
 function App() {
 
   return (
-      <div className="App">
+    <div className="App">
 
-        <Router>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
+      <Router>
+        <ul className="navigation">
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          {/* <li>
               <Link to="/welcome">Welcome</Link>
-            </li>
-            <li>
-              <Link to="/dynamic">Dynamic Form</Link>
-            </li>
-          </ul>
+            </li> */}
+          <li>
+            <Link to="/layout1">Layout1</Link>
+          </li>
+          <li>
+            <Link to="/layout2">Layout2</Link>
+          </li>
+        </ul>
 
-          <Switch>
-            <Route path="/welcome">
-              <Welcome name="Gokul" />
-            </Route>
-            <Route path="/dynamic">
-              <DynamicForm name="test" />
-            </Route>
-            <Route path="/">
-              <Home name="Test"/>
-            </Route>
-          </Switch>
+        <Switch>
+          <Route path="/welcome">
+            <Welcome name="Gokul" />
+          </Route>
+          <Route path="/layout1">
+            <Layout1 />
+          </Route> 
+          <Route path="/layout2">
+            <Layout2 />
+          </Route>
+          <Route path="/">
+            <Home name="Test" />
+          </Route>
+        </Switch>
 
-        </Router>
-      </div>
+      </Router>
+    </div>
   );
 }
 
