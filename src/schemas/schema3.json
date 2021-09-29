@@ -1,38 +1,10 @@
 {
     "layout": [
         {
-            "type": "div",
+            "type": "tabs",
             "class": "tabs",
-            "dataKey": "",
+            "dataKey": "tabs",
             "children": [
-                {
-                    "type": "div",
-                    "class": "tab is-tab-selected",
-                    "dataKey": "",
-                    "data": "Tab 1",
-                    "children": []
-                },
-                {
-                    "type": "div",
-                    "class": "tab",
-                    "dataKey": "",
-                    "data": "Tab 2",
-                    "children": []
-                },
-                {
-                    "type": "div",
-                    "class": "tab",
-                    "dataKey": "",
-                    "data": "Tab 3",
-                    "children": []
-                },
-                {
-                    "type": "div",
-                    "class": "tab",
-                    "dataKey": "",
-                    "data": "Tab 4",
-                    "children": []
-                }
             ]
         }
     ]
