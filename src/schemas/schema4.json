@@ -1,0 +1,17 @@
+{
+    "layout": [
+        {
+            "type": "tableHeaders",
+            "class": "tr th",
+            "dataKey": "tableHeaders",
+            "children": []
+        },
+        {
+            "type": "tableRows",
+            "class": "tr",
+            "dataKey": "tableRows",
+            "children": []
+        }
+    ]
+}
+

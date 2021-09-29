@@ -1,7 +1,6 @@
-import schema1 from '../schemas/schema1.json';
 import data from '../data.json';
 import './Layout.css'
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 interface IProps {
   schema: IElement[];
@@ -14,7 +13,8 @@ export interface IElement {
   dataKey: string,
   data?: string,
   for?: string,
-  id?: string
+  id?: string,
+  placeHolder?: string
 }
 
 interface ITabProps {
@@ -36,13 +36,12 @@ const Tabs = (tabProps: ITabProps) => {
 
   return (
     <div className="tabs">
-      {tabProps.tabs.map(m => <div className={ selectedTabId === m.id ? 'tab is-tab-selected': 'tab'} onClick={() => setActiveTab(m.id)}>{m.text}</div>)}
+      {tabProps.tabs.map(m => <div className={selectedTabId === m.id ? 'tab is-tab-selected' : 'tab'} onClick={() => setActiveTab(m.id)}>{m.text}</div>)}
     </div>
   );
 };
 
 export const renderLayout = (element: IElement) => {
-  // console.log(element);
   let jsonString = JSON.parse(JSON.stringify(data));
 
   switch (element.type) {
@@ -67,8 +66,15 @@ export const renderLayout = (element: IElement) => {
     case "tabs":
       let tabs = jsonString[element.dataKey] as ITab[];
       return <Tabs tabs={tabs}></Tabs>
+    case "tableHeaders":
+      let cells = jsonString[element.dataKey] as IElement[];
+      console.log(cells);
+      return <div className={element.class}> {cells.map(m => renderLayout(m))} </div>;
+    case "tableRows":
+      let rows = jsonString[element.dataKey] as IElement[];
+      return <React.Fragment>{rows.map(m => renderLayout(m))} </React.Fragment>
     default:
-      return <input type="text" id={element.id} />;
+      return <input type="text" id={element.id} placeholder={element.placeHolder} value={element.data} />;
   }
 }
 
