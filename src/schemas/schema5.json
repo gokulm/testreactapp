@@ -1,0 +1,17 @@
+{
+    "layout": [
+        {
+            "type": "tableHeadersDynamic",
+            "class": "tr th",
+            "dataKey": "tableHeadersDynamic",
+            "children": []
+        },
+        {
+            "type": "tableRowsDynamic",
+            "class": "tr",
+            "dataKey": "tableHeadersDynamic",
+            "children": []
+        }
+    ]
+}
+

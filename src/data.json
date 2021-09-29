@@ -131,5 +131,24 @@
         }
       ]
     }
-  ]
+  ],
+  "table": {
+    "headers": [
+      "Attribute",
+      "Year 1",
+      "Year 2"
+    ],
+    "rows": [
+      {
+        "name": "Salary & Wages",
+        "amount1": "$10",
+        "amount2": "$30"
+      },
+      {
+        "name": "Interest Received",
+        "amount1": "$10",
+        "amount2": "$30"
+      }
+    ]
+  }
 }

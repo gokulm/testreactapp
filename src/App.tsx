@@ -10,6 +10,7 @@ import Home from './Home';
 import Layout1 from './layouts/Layout1';
 import Layout2 from './layouts/Layout2';
 import Layout3 from './layouts/Layout3';
+import Layout4 from './layouts/Layout4';
 
 function App() {
 
@@ -33,6 +34,9 @@ function App() {
           <li>
             <Link to="/layout3">Layout3</Link>
           </li>
+          <li>
+            <Link to="/layout4">Layout4</Link>
+          </li>
         </ul>
 
         <Switch>
@@ -47,6 +51,9 @@ function App() {
           </Route>
           <Route path="/layout3">
             <Layout3 />
+          </Route>
+          <Route path="/layout4">
+            <Layout4 />
           </Route>
           <Route path="/">
             <Home name="Test" />

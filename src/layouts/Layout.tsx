@@ -68,11 +68,34 @@ export const renderLayout = (element: IElement) => {
       return <Tabs tabs={tabs}></Tabs>
     case "tableHeaders":
       let cells = jsonString[element.dataKey] as IElement[];
-      console.log(cells);
+      // console.log(cells);
       return <div className={element.class}> {cells.map(m => renderLayout(m))} </div>;
     case "tableRows":
       let rows = jsonString[element.dataKey] as IElement[];
       return <React.Fragment>{rows.map(m => renderLayout(m))} </React.Fragment>
+    case "tableHeadersDynamic":
+      let headers = data.table.headers;
+      let headerElements = new Array<IElement>();
+      headers.forEach(h => {
+        let headerElement = {} as IElement;
+        headerElement.class = "td";
+        headerElement.data = h;
+        headerElement.type = "div";
+        headerElement.children = [];
+        headerElements.push(headerElement);
+      });
+      return <div className={element.class}> {headerElements.map(m => renderLayout(m))} </div>;
+    case "tableRowsDynamic":
+      let rowElements = new Array<IElement>();
+      data.table.rows.forEach(h => {
+        let rowElement = {} as IElement;
+        rowElement.class = "td";
+        rowElement.data = h.name;
+        rowElement.type = "div";
+        rowElement.children = [];
+        rowElements.push(rowElement);
+      });
+      return <div className={element.class}> {rowElements.map(m => renderLayout(m))} </div>;
     default:
       return <input type="text" id={element.id} placeholder={element.placeHolder} value={element.data} />;
   }
