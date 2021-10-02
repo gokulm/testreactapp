@@ -1,22 +1,11 @@
 import data from '../data.json';
 import './Layout.css'
 import React, { useState } from 'react';
-import { renderElement } from './Layout';
+import { IElement, renderElement } from './Layout';
 
 interface IProps {
   controls: IElement[];
   layouts: ILayout[];
-}
-
-export interface IElement {
-  type: string,
-  class: string,
-  children: IElement[],
-  dataKey: string,
-  data?: string,
-  for?: string,
-  id?: string,
-  placeHolder?: string
 }
 
 export interface ILayout {

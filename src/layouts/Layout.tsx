@@ -8,14 +8,14 @@ interface IProps {
 
 export interface IElement {
   type: string,
-  class: string,
+  class?: string,
   children: IElement[],
   dataKey: string,
   data?: string,
   for?: string,
   id?: string,
   placeHolder?: string,
-  style?: object
+  style?: any
 }
 
 interface ITabProps {
@@ -107,8 +107,14 @@ export const renderElement = (element: IElement) => {
         rowElements.push(rowElement);
       });
       return <div className={element.class}> {rowElements.map(m => renderElement(m))} </div>;
+    case "text":
+      return <input type="text" style={element.style} id={element.id} placeholder={element.placeHolder} value={element.data} />;
+    case "checkbox":
+      return <div style={element.style}>
+        <input type="checkbox" id={element.id} name={element.id} value="" /><label htmlFor={element.id}> {element.data}</label>
+      </div>;
     default:
-      return <input type="text" style={{ padding: "1em", marginBottom: "1em" }} id={element.id} placeholder={element.placeHolder} value={element.data} />;
+      return <input type="text" />;
   }
 }
 

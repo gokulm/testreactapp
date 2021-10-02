@@ -160,7 +160,7 @@
       background-color: lightgray;
       border-radius: 3px;
       padding: 1.8em;
-      width: 600px;
+      width: 80%;
       flex-direction: column;
       flex-flow: row wrap;
     }

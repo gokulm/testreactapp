@@ -6,7 +6,8 @@
             "class": "",
             "dataKey": "",
             "data": "Message",
-            "children": []
+            "children": [],
+            "style": null
         },
         {
             "id": "textarea1",
@@ -14,7 +15,8 @@
             "class": "flex1",
             "dataKey": "",
             "data": "",
-            "children": []
+            "children": [],
+            "style": null
         },
         {
             "id": "labelName",
@@ -23,12 +25,29 @@
             "dataKey": "",
             "data": "Name",
             "for": "textName",
-            "children": []
+            "children": [],
+            "style": null
+        },
+        {
+            "id": "checkBoxTest",
+            "type": "checkbox",
+            "class": "",
+            "dataKey": "",
+            "data": "Is Testing?",
+            "for": "textName",
+            "children": [],
+            "style": {
+                "marginBottom": "1em"
+            }
         },
         {
             "id": "textName",
             "type": "text",
-            "class": "",
+            "style": {
+                "width": "90%",
+                "padding": "1em",
+                "marginBottom": "1em"
+            },
             "dataKey": "",
             "data": "",
             "placeHolder": "Enter your name",
@@ -41,7 +60,8 @@
             "dataKey": "",
             "for": "textTownBorn",
             "data": "Town you were born in",
-            "children": []
+            "children": [],
+            "style": null
         },
         {
             "id": "textTownBorn",
@@ -49,7 +69,12 @@
             "class": "",
             "dataKey": "",
             "data": "test data",
-            "children": []
+            "children": [],
+            "style": {
+                "width": "90%",
+                "padding": "1em",
+                "marginBottom": "1em"
+            }
         },
         {
             "id": "submitButton",
@@ -63,7 +88,7 @@
                 "color": "white",
                 "border": 0,
                 "padding": "1em",
-                "margin-bottom": "1em"
+                "marginBottom": "1em"
             }
         }
     ],
@@ -93,6 +118,31 @@
                         "textName",
                         "labelTownBorn",
                         "textTownBorn",
+                        "labelTownBorn",
+                        "textTownBorn",
+                        "labelName",
+                        "textName",
+                        "labelTownBorn",
+                        "textTownBorn"
+                    ]
+                },
+                {
+                    "type": "flex1",
+                    "class": "contact",
+                    "direction": "vertical",
+                    "layouts": [],
+                    "controls": [
+                        "labelName",
+                        "textName",
+                        "labelTownBorn",
+                        "textTownBorn",
+                        "labelTownBorn",
+                        "textTownBorn",
+                        "labelName",
+                        "textName",
+                        "labelTownBorn",
+                        "textTownBorn",
+                        "checkBoxTest",
                         "submitButton"
                     ]
                 }
