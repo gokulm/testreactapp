@@ -153,3 +153,30 @@
       font-weight: bold;
     }
     
+
+
+    .flexContainer {
+      display: flex;
+      background-color: lightgray;
+      border-radius: 3px;
+      padding: 1.8em;
+      width: 600px;
+      flex-direction: column;
+      flex-flow: row wrap;
+    }
+
+    .flex1
+    {
+      flex: 1 0;
+     display: flex;
+   	margin-right: 2em; 
+     flex-direction: column;
+    }
+
+    .contactButton {
+      background: gray;
+      color: white;
+      border: 0;
+      padding: 1em;
+      margin-bottom: 1em;
+     }

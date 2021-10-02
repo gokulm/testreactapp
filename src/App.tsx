@@ -11,6 +11,7 @@ import Layout1 from './layouts/Layout1';
 import Layout2 from './layouts/Layout2';
 import Layout3 from './layouts/Layout3';
 import Layout4 from './layouts/Layout4';
+import Layout5 from './layouts/Layout5';
 
 function App() {
 
@@ -37,6 +38,9 @@ function App() {
           <li>
             <Link to="/layout4">Layout4</Link>
           </li>
+          <li>
+            <Link to="/layout5">Layout5</Link>
+          </li>
         </ul>
 
         <Switch>
@@ -54,6 +58,9 @@ function App() {
           </Route>
           <Route path="/layout4">
             <Layout4 />
+          </Route>
+          <Route path="/layout5">
+            <Layout5 />
           </Route>
           <Route path="/">
             <Home name="Test" />

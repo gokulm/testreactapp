@@ -1,17 +1,103 @@
 {
-    "layout": [
+    "controls": [
         {
-            "type": "tableHeadersDynamic",
-            "class": "tr th",
-            "dataKey": "tableHeadersDynamic",
+            "id": "labelMessage",
+            "type": "label",
+            "class": "",
+            "dataKey": "",
+            "data": "Message",
             "children": []
         },
         {
-            "type": "tableRowsDynamic",
-            "class": "tr",
-            "dataKey": "tableHeadersDynamic",
+            "id": "textarea1",
+            "type": "textarea",
+            "class": "flex1",
+            "dataKey": "",
+            "data": "",
             "children": []
+        },
+        {
+            "id": "labelName",
+            "type": "label",
+            "class": "",
+            "dataKey": "",
+            "data": "Name",
+            "for": "textName",
+            "children": []
+        },
+        {
+            "id": "textName",
+            "type": "text",
+            "class": "",
+            "dataKey": "",
+            "data": "",
+            "placeHolder": "Enter your name",
+            "children": []
+        },
+        {
+            "id": "labelTownBorn",
+            "type": "label",
+            "class": "",
+            "dataKey": "",
+            "for": "textTownBorn",
+            "data": "Town you were born in",
+            "children": []
+        },
+        {
+            "id": "textTownBorn",
+            "type": "text",
+            "class": "",
+            "dataKey": "",
+            "data": "test data",
+            "children": []
+        },
+        {
+            "id": "submitButton",
+            "type": "button",
+            "class": "contactButton",
+            "dataKey": "",
+            "data": "",
+            "children": [],
+            "style": {
+                "background": "gray",
+                "color": "white",
+                "border": 0,
+                "padding": "1em",
+                "margin-bottom": "1em"
+            }
+        }
+    ],
+    "layouts": [
+        {
+            "type": "flexContainer",
+            "class": "message",
+            "direction": "horizontal",
+            "layouts": [
+                {
+                    "type": "flex1",
+                    "class": "message",
+                    "direction": "vertical",
+                    "layouts": [],
+                    "controls": [
+                        "labelMessage",
+                        "textarea1"
+                    ]
+                },
+                {
+                    "type": "flex1",
+                    "class": "contact",
+                    "direction": "vertical",
+                    "layouts": [],
+                    "controls": [
+                        "labelName",
+                        "textName",
+                        "labelTownBorn",
+                        "textTownBorn",
+                        "submitButton"
+                    ]
+                }
+            ],
+            "controls": []
         }
     ]
 }
-
