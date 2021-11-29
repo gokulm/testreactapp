@@ -34,19 +34,6 @@ const ApplicationForm = (props: any) => {
     }
     console.log("sole prop: ", getValues("apiPostData.business._extension.soleProprietorship"));
   }
-
-  const normalizeInput = (value: any, previousValue: any) => {
-    if (!value) return value;
-    const currentValue = value.replace(/[^\d]/g, '');
-    const cvLength = currentValue.length;
-
-    if (!previousValue || value.length > previousValue.length) {
-      if (cvLength < 4) return currentValue;
-      if (cvLength < 7) return `(${currentValue.slice(0, 3)}) ${currentValue.slice(3)}`;
-      return `(${currentValue.slice(0, 3)}) ${currentValue.slice(3, 6)}-${currentValue.slice(6, 10)}`;
-    }
-  };
-
   // const handleWeatherChange = (e: any) => {
   //   console.log("weather changed: ", e.target.value);
   //   setValue("apiGetData.weather", e.target.value, {
@@ -76,14 +63,12 @@ const ApplicationForm = (props: any) => {
                           <input type="radio" value="true"
                             {...register("apiPostData.business._extension.soleProprietorship", { required: false })}
                             defaultChecked={apiGetData.business._extension.soleProprietorship === "true"}
-                            onChange={handleSolePropChange}
                             id="radioYes" /> Yes </label>
 
                         <label htmlFor="radioNo">
                           <input type="radio" value="false"
                             {...register("apiPostData.business._extension.soleProprietorship", { required: false })}
                             defaultChecked={apiGetData.business._extension.soleProprietorship === "false"}
-                            onChange={handleSolePropChange}
                             id="radioNo" /> No </label>
                       </div>
                     </Col>
@@ -145,8 +130,6 @@ const ApplicationForm = (props: any) => {
                         render={({ field }) =>
                           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Business Tax ID (EIN)</Form.Label>
-                            {/* <Form.Control
-                              {...register("apiPostData.business.taxId", { required: false })} {...field} /> */}
                             <NumberFormat format="##-#######" className="form-control" {...field} placeholder="##-#######"
                               {...register("apiPostData.business.taxId", { required: false })} />
                           </Form.Group>}
@@ -166,6 +149,20 @@ const ApplicationForm = (props: any) => {
                               {...register("apiPostData.business.phone", { required: false })} />
                             {/* <Form.Control defaultValue={apiGetData.business.phone}
                               {...register("apiPostData.business.phone", { required: false })} {...field} /> */}
+                          </Form.Group>}
+                      />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <Controller
+                        control={control}
+                        name="apiPostData.business.grossAnnualRevenue" defaultValue={apiGetData.business.grossAnnualRevenue} 
+                        render={({ field }) =>
+                          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                            <Form.Label>Annual Sales Revenue</Form.Label>
+                            <NumberFormat thousandSeparator={true} prefix={'$'} className="form-control" {...field} placeholder="$0.00"
+                              {...register("apiPostData.business.grossAnnualRevenue", { required: false })} />
                           </Form.Group>}
                       />
                     </Col>
