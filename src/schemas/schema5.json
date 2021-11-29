@@ -141,9 +141,25 @@
                         "labelName",
                         "textName",
                         "labelTownBorn",
-                        "textTownBorn",
+                        "textTownBorn"
+                    ]
+                },
+                {
+                    "type": "flexContainer",
+                    "class": "contact",
+                    "direction": "vertical",
+                    "layouts": [],
+                    "controls": [
                         "checkBoxTest",
-                        "checkBoxTest",
+                        "checkBoxTest"
+                    ]
+                },
+                {
+                    "type": "flex1",
+                    "class": "contact",
+                    "direction": "vertical",
+                    "layouts": [],
+                    "controls": [
                         "submitButton"
                     ]
                 }
