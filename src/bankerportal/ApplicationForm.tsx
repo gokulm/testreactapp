@@ -138,8 +138,8 @@ const ApplicationForm = (props: any) => {
                         render={({ field }) =>
                           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Business Tax ID (EIN)</Form.Label>
-                            <NumberFormat format="##-#######" className="form-control" {...field} placeholder="##-#######"
-                              {...register("business.taxId", { required: false })} />
+                            <NumberFormat format="##-#######" className="form-control"  placeholder="##-#######"
+                              {...register("business.taxId", { required: false })} {...field} />
                           </Form.Group>}
                       />
                     </Col>
@@ -153,8 +153,8 @@ const ApplicationForm = (props: any) => {
                         render={({ field }) =>
                           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Business Phone Number</Form.Label>
-                            <NumberFormat format="###-###-####" className="form-control" {...field} placeholder="###-###-####"
-                              {...register("business.phone", { required: false })} />
+                            <NumberFormat format="###-###-####" className="form-control" placeholder="###-###-####"
+                              {...register("business.phone", { required: false })} {...field} />
                           </Form.Group>}
                       />
                     </Col>
@@ -167,8 +167,8 @@ const ApplicationForm = (props: any) => {
                         render={({ field }) =>
                           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Annual Sales Revenue</Form.Label>
-                            <NumberFormat thousandSeparator={true} prefix={'$'} className="form-control" {...field} placeholder="$0.00"
-                              {...register("business.grossAnnualRevenue", { required: false })} />
+                            <NumberFormat thousandSeparator={true} prefix={'$'} className="form-control" placeholder="$0.00"
+                              {...register("business.grossAnnualRevenue", { required: false })} {...field} />
                           </Form.Group>}
                       />
                     </Col>
