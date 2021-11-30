@@ -1,6 +1,5 @@
 {
     "weather": "wind",
-    "soleProprietorship": true,
     "owners": [{
             "id": "apo:app:f1ff3b96-35d6-4f32-9367-43c42dd181ae",
             "city": "Sterling",
@@ -41,7 +40,7 @@
             "netIncome": "10000",
             "productsSold": "abcde",
             "numberEmployees": "4",
-            "soleProprietorship": "true"
+            "soleProprietorship": "false"
         },
         "postalCode": "20164",
         "doingBusinessAs": "Sole Prop",

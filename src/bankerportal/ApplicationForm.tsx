@@ -4,35 +4,42 @@ import { Controller, useForm } from 'react-hook-form';
 import { Card, FormControl, InputGroup, Container, Row, Col, Form } from 'react-bootstrap';
 import { queryByLabelText } from '@testing-library/react';
 import NumberFormat from 'react-number-format';
+import { useEffect } from 'react';
 
 
 
 const ApplicationForm = (props: any) => {
 
-  const { register, handleSubmit, watch, formState: { errors }, control, setValue, getValues } = useForm();
+  const { register, handleSubmit, watch, formState: { errors }, control, setValue, getValues } = useForm({ defaultValues: apiGetData })
   const onSubmit = (testData: any) => console.log(testData);
+
+  // useEffect(() => {
+
+
+
+  // });
 
 
   const handleSolePropChange = (e: any) => {
     // e.preventDefault();
     let value = e.target.value;
-    // console.log("handleSolePropChange", value);
+    console.log("handleSolePropChange", value);
     if (value && typeof value === "string") {
       if (value.toLowerCase() === "true") {
-        setValue("apiPostData.business._extension.soleProprietorship", "true", {
+        setValue("business._extension.soleProprietorship", "true", {
           shouldValidate: true,
           shouldDirty: true
         });
       }
       if (value.toLowerCase() === "false") {
         // console.log("handleSolePropChange is string", value);
-        setValue("apiPostData.business._extension.soleProprietorship", "false", {
+        setValue("business._extension.soleProprietorship", "false", {
           shouldValidate: true,
           shouldDirty: true
         })
       }
     }
-    console.log("sole prop: ", getValues("apiPostData.business._extension.soleProprietorship"));
+    console.log("sole prop: ", getValues("business._extension.soleProprietorship"));
   }
   // const handleWeatherChange = (e: any) => {
   //   console.log("weather changed: ", e.target.value);
@@ -60,43 +67,45 @@ const ApplicationForm = (props: any) => {
                       <label className="text-input__label">Is the business you're filling out this application for a sole proprietorship?</label>
                       <div className="text-input__input-container">
                         <label htmlFor="radioYes">
-                          <input type="radio" value="true"
-                            {...register("apiPostData.business._extension.soleProprietorship", { required: false })}
+                          <input type="radio" value="true" 
+                            {...register("business._extension.soleProprietorship", { required: false })}
                             defaultChecked={apiGetData.business._extension.soleProprietorship === "true"}
+                            onChange={handleSolePropChange}
                             id="radioYes" /> Yes </label>
 
                         <label htmlFor="radioNo">
                           <input type="radio" value="false"
-                            {...register("apiPostData.business._extension.soleProprietorship", { required: false })}
+                            {...register("business._extension.soleProprietorship", { required: false })}
                             defaultChecked={apiGetData.business._extension.soleProprietorship === "false"}
+                            onChange={handleSolePropChange}
                             id="radioNo" /> No </label>
                       </div>
                     </Col>
                   </Row>
                   <Row>
                     <Col>
-                      <Controller defaultValue={apiGetData.business.doingBusinessAs}
-                        name="apiPostData.business.doingBusinessAs"
+                      <Controller
+                        name="business.doingBusinessAs"
                         control={control}
                         render={({ field }) =>
                           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Doing Business As (DBA), If Applicable</Form.Label>
                             <Form.Control
-                              {...register("apiPostData.business.doingBusinessAs", { required: false })} {...field} />
+                              {...register("business.doingBusinessAs", { required: false })} {...field} />
                           </Form.Group>}
                       />
                     </Col>
                   </Row>
                   <Row>
                     <Col>
-                      <Controller defaultValue={apiGetData.business.state}
-                        name="apiPostData.business.state"
+                      <Controller
+                        name="business.state"
                         control={control}
                         render={({ field }) =>
                           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>State</Form.Label>
                             <Form.Select aria-label="Select State" {...field}
-                              {...register("apiPostData.business.state", { required: false })}
+                              {...register("business.state", { required: false })}
                             >
                               <option>Select State</option>
                               <option value="AL">AL</option>
@@ -110,63 +119,60 @@ const ApplicationForm = (props: any) => {
                   <Row>
                     <Col>
                       <Controller
-                        name="apiPostData.owners.0.email"
+                        name="owners.0.email"
                         control={control}
-                        defaultValue={apiGetData.owners[0].email} 
                         render={({ field }) =>
                           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Email Address</Form.Label>
-                            <Form.Control type="email"placeholder="name@example.com"
-                              {...register("apiPostData.owners.0.email", { required: false })}  {...field} />
+                            <Form.Control type="email" placeholder="name@example.com"
+                              {...register("owners.0.email", { required: false })}  {...field} />
                           </Form.Group>}
                       />
                     </Col>
                   </Row>
-                  {getValues("apiPostData.business._extension.soleProprietorship") === "true" && <Row>
+                   {getValues("business._extension.soleProprietorship") === "true" && <Row>
                     <Col>
                       <Controller
-                        control={control} defaultValue={apiGetData.business.taxId}
-                        name="apiPostData.business.taxId"
+                        control={control}
+                        name="business.taxId"
                         render={({ field }) =>
                           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Business Tax ID (EIN)</Form.Label>
                             <NumberFormat format="##-#######" className="form-control" {...field} placeholder="##-#######"
-                              {...register("apiPostData.business.taxId", { required: false })} />
+                              {...register("business.taxId", { required: false })} />
                           </Form.Group>}
                       />
                     </Col>
                   </Row>
                   }
-                  <Row>
+                   <Row>
                     <Col>
                       <Controller
                         control={control}
-                        name="apiPostData.business.phone" defaultValue={apiGetData.business.phone} 
+                        name="business.phone" 
                         render={({ field }) =>
                           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Business Phone Number</Form.Label>
                             <NumberFormat format="###-###-####" className="form-control" {...field} placeholder="###-###-####"
-                              {...register("apiPostData.business.phone", { required: false })} />
-                            {/* <Form.Control defaultValue={apiGetData.business.phone}
-                              {...register("apiPostData.business.phone", { required: false })} {...field} /> */}
+                              {...register("business.phone", { required: false })} />
                           </Form.Group>}
                       />
                     </Col>
                   </Row>
-                  <Row>
+                 <Row>
                     <Col>
                       <Controller
                         control={control}
-                        name="apiPostData.business.grossAnnualRevenue" defaultValue={apiGetData.business.grossAnnualRevenue} 
+                        name="business.grossAnnualRevenue"
                         render={({ field }) =>
                           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Annual Sales Revenue</Form.Label>
                             <NumberFormat thousandSeparator={true} prefix={'$'} className="form-control" {...field} placeholder="$0.00"
-                              {...register("apiPostData.business.grossAnnualRevenue", { required: false })} />
+                              {...register("business.grossAnnualRevenue", { required: false })} />
                           </Form.Group>}
                       />
                     </Col>
-                  </Row>
+                  </Row> 
                   <Row>
                     <Col>
                       <input type="submit" />
