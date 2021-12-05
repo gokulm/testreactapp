@@ -1,27 +1,10 @@
-import { Form } from 'react-bootstrap';
-import { useFormContext } from 'react-hook-form'
-import './JsonRenderer.scss'
+import { Form } from "react-bootstrap";
+import { useFormContext } from "react-hook-form";
+import { IComponentAttribute } from "./JsonRenderer"
 
-interface IProps {
-    schema: IComponentAttribute[],
-    data: any
-}
-
-export interface IComponentAttribute {
-    type: string,
-    class?: string,
-    children: IComponentAttribute[],
-    id?: string,
-    placeHolder?: string,
-    style?: any,
-    defaultValue?: string,
-    name: string,
-    dropdownValues?: any[]
-}
-
-const JsonRenderer = (props: IProps) => {
+const ComponentFactory = (props: any) => {
     const { register } = useFormContext();
-
+    
     const componentMappers: { [key: string]: Function } = {
         "flex": (componentProps: any) => renderFlexContainer(componentProps),
         "text": (componentProps: any) => renderTextBox(componentProps),
@@ -45,14 +28,6 @@ const JsonRenderer = (props: IProps) => {
             {componentProps.dropdownValues?.map(d => <option value={d}>{d}</option>)}
         </Form.Select>
     }
-
-    return (
-        <>
-            {
-                (props.schema).map(m => componentMappers[m.type](m))
-            }
-        </>
-    );
 }
 
-export default JsonRenderer;
+export default ComponentFactory;
