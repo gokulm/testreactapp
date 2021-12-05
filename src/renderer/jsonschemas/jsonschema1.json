@@ -1,0 +1,13 @@
+{
+    "components": [{
+        "type": "flex",
+        "class": "header",
+        "dataKey": "page_title",
+        "children": [{
+            "type": "text",
+            "class": "header",
+            "dataKey": "page_title",
+            "children": []
+        }]
+    }]
+}

@@ -12,6 +12,7 @@ import Layout2 from './layouts/Layout2';
 import Layout3 from './layouts/Layout3';
 import Layout4 from './layouts/Layout4';
 import ApplicationForm from './bankerportal/ApplicationForm';
+import JsonRendererContainer from './renderer/JsonRendererContainer';
 
 function App() {
 
@@ -41,6 +42,9 @@ function App() {
           <li>
             <Link to="/bankerportal">Banker Portal</Link>
           </li>
+          <li>
+            <Link to="/jsonrenderer">JSON Renderer</Link>
+          </li>
         </ul>
 
         <Switch>
@@ -61,6 +65,9 @@ function App() {
           </Route>
           <Route path="/bankerportal">
             <ApplicationForm />
+          </Route>
+          <Route path="/jsonrenderer">
+            <JsonRendererContainer />
           </Route>
           <Route path="/">
             <Home name="Test" />
