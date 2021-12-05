@@ -1,0 +1,98 @@
+{
+    "owners": [{
+        "id": "apo:app:f1ff3b96-35d6-4f32-9367-43c42dd181ae",
+        "city": "Sterling",
+        "email": "sole@gmail.com",
+        "state": "VA",
+        "county": "Loudoun",
+        "address": "1034 Salisbury Ct",
+        "lastName": "Smith",
+        "firstName": "John",
+        "_extension": {
+            "netWorth": "1000",
+            "USCitizen": true,
+            "hasBankruptcy": false,
+            "pendingLawsuits": false,
+            "stateOfResidency": "AR",
+            "grossAnnualIncome": "10000",
+            "misdemeanorOrFelony": false,
+            "yearsAsBusinessOwner": "4"
+        },
+        "nationalId": "123456789",
+        "postalCode": "20164",
+        "dateOfBirth": "1999-11-11",
+        "primaryOwner": true,
+        "primaryPhone": "1234567890",
+        "nationalIdType": "SSN"
+    }],
+    "status": "SUBMITTED",
+    "business": {
+        "id": "apo:app:f792ed72-b7e3-4b26-b328-4e3d3310845f",
+        "city": "Sterling",
+        "phone": "1234567890",
+        "state": "VA",
+        "taxId": "123456789",
+        "county": "Loudoun",
+        "address": "1034 Salisbury Ct",
+        "_extension": {
+            "netIncome": "10000",
+            "productsSold": "abcde",
+            "numberEmployees": "4",
+            "soleProprietorship": "false"
+        },
+        "postalCode": "20164",
+        "doingBusinessAs": "Sole Prop",
+        "legalBusinessName": "Sole Prop",
+        "stateIncorporated": "AZ",
+        "grossAnnualRevenue": "10000",
+        "selfReportedRestrictedIndustry": false
+    },
+    "coOwners": [],
+    "consents": [{
+        "type": "TERMS_AND_CONDITIONS",
+        "ipAddress": "10.187.38.55",
+        "timestamp": "2021-11-26 06:27:02"
+    }, {
+        "type": "E-SIGN_CONSENT_AGREEMENT",
+        "ipAddress": "10.187.38.55",
+        "timestamp": "2021-11-26 06:27:02"
+    }, {
+        "type": "CONFIRMATION_CORRECT_INFORMATION",
+        "ipAddress": "10.187.33.135",
+        "timestamp": "2021-11-26 06:29:33"
+    }, {
+        "type": "AUTHORIZED_AGENT",
+        "ipAddress": "10.187.33.135",
+        "timestamp": "2021-11-26 06:30:18"
+    }, {
+        "type": "CERTIFICATIONS_AND_AUTHORIZATIONS",
+        "ipAddress": "10.187.33.135",
+        "timestamp": "2021-11-26 06:30:40"
+    }],
+    "startedAt": "2021-11-26T06:26:14.825904813Z",
+    "_extension": {
+        "country": "USA",
+        "collaterals": [],
+        "fundingProducts": [],
+        "fundingPurposes": [{
+            "purpose": "BUSINESS_ACQUISITION",
+            "productType": "TERM_LOAN",
+            "requestedAmount": "40000"
+        }],
+        "typeOfCollateral": ["NONE"],
+        "externalApplicationId": "ODX000878"
+    },
+    "closedDate": "",
+    "submittedDate": "2021-11-26T06:30:41.252824720Z",
+    "expirationDate": "2022-11-27T04:59:00.0Z",
+    "beneficialOwners": [],
+    "coOwnerSubmitted": "PENDING",
+    "decisionDeadlineDate": "2021-12-27T04:59:00.0Z",
+    "threatMetrixIpAddress": "10.187.38.55",
+    "threatMetrixSessionId": "b01890fe-aa62-4166-888a-4632eca44967",
+    "id": "apo:app:1a15cf9a-bda4-4191-b525-f2b3c6533238",
+    "userId": "auth0|61a07e01f68344555a509df5",
+    "version": 9,
+    "product": "loc",
+    "salesChannel": "APP_UI"
+}

@@ -10,16 +10,10 @@ import { useEffect } from 'react';
 
 const ApplicationForm = (props: any) => {
 
-  const { register, handleSubmit, watch, formState: { errors }, control, setValue, getValues } = useForm({ defaultValues: apiGetData })
+  const { register, handleSubmit, watch, 
+    formState: { errors }, control, setValue, getValues } = useForm({ defaultValues: apiGetData })
   const onSubmit = (testData: any) => console.log(testData);
-
-  // useEffect(() => {
-
-
-
-  // });
-
-
+  
   const handleSolePropChange = (e: any) => {
     // e.preventDefault();
     let value = e.target.value;

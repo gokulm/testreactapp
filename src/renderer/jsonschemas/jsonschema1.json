@@ -1,12 +1,34 @@
 {
     "components": [{
         "type": "flex",
+        "name": "layout",
         "class": "header",
-        "dataKey": "page_title",
+        "defaultValue": "test",
+        "dropdownValues": ["AL", "AK", "MD", "VA"],
         "children": [{
+            "name": "owners.0.firstName",
             "type": "text",
             "class": "header",
-            "dataKey": "page_title",
+            "placeHolder": "Please enter firstname",
+            "children": []
+        }, {
+            "name": "owners.0.lastName",
+            "type": "text",
+            "class": "header",
+            "placeHolder": "Please enter firstname",
+            "children": []
+        }, {
+            "type": "text",
+            "name": "owners.0.address",
+            "class": "header",
+            "placeHolder": "test placeholder 2",
+            "children": []
+        }, {
+            "type": "dropdown",
+            "name": "owners.0.state",
+            "class": "header",
+            "placeHolder": "Select State",
+            "dropdownValues": ["AL", "AK", "MD", "VA"],
             "children": []
         }]
     }]
