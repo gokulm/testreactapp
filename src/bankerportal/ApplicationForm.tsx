@@ -10,29 +10,33 @@ import { useEffect } from 'react';
 
 const ApplicationForm = (props: any) => {
 
-  const { register, handleSubmit, watch, 
-    formState: { errors }, control, setValue, getValues } = useForm({ defaultValues: apiGetData })
+  const { register, handleSubmit, watch,
+    formState: { errors }, control, setValue, getValues } = useForm({ defaultValues: apiGetData });
+  const isSoleProp = watch("business._extension.soleProprietorship");
   const onSubmit = (testData: any) => console.log(testData);
-  
+
+  const watchFields = watch(["business._extension.soleProprietorship"]);
+  console.log("watchFields", watchFields);
+
   const handleSolePropChange = (e: any) => {
     // e.preventDefault();
     let value = e.target.value;
     console.log("handleSolePropChange", value);
-    if (value && typeof value === "string") {
-      if (value.toLowerCase() === "true") {
-        setValue("business._extension.soleProprietorship", "true", {
-          shouldValidate: true,
-          shouldDirty: true
-        });
-      }
-      if (value.toLowerCase() === "false") {
-        // console.log("handleSolePropChange is string", value);
-        setValue("business._extension.soleProprietorship", "false", {
-          shouldValidate: true,
-          shouldDirty: true
-        })
-      }
-    }
+    // if (value && typeof value === "string") {
+    //   if (value.toLowerCase() === "true") {
+    //     setValue("business._extension.soleProprietorship", "true", {
+    //       shouldValidate: true,
+    //       shouldDirty: true
+    //     });
+    //   }
+    //   if (value.toLowerCase() === "false") {
+    //     // console.log("handleSolePropChange is string", value);
+    //     setValue("business._extension.soleProprietorship", "false", {
+    //       shouldValidate: true,
+    //       shouldDirty: true
+    //     })
+    //   }
+    // }
     console.log("sole prop: ", getValues("business._extension.soleProprietorship"));
   }
   // const handleWeatherChange = (e: any) => {
@@ -42,6 +46,10 @@ const ApplicationForm = (props: any) => {
   //     shouldDirty: true
   //   })
   // }
+
+  // useEffect(() => {
+  //   console.log("isSoleProp", isSoleProp);
+  // }, [isSoleProp]);
 
   return (
     <Container fluid="md">
@@ -61,17 +69,17 @@ const ApplicationForm = (props: any) => {
                       <label className="text-input__label">Is the business you're filling out this application for a sole proprietorship?</label>
                       <div className="text-input__input-container">
                         <label htmlFor="radioYes">
-                          <input type="radio" value="true" 
+                          <input type="radio" value="true"
                             {...register("business._extension.soleProprietorship", { required: false })}
                             defaultChecked={apiGetData.business._extension.soleProprietorship === "true"}
-                            onChange={handleSolePropChange}
+                            // onChange={handleSolePropChange}
                             id="radioYes" /> Yes </label>
 
                         <label htmlFor="radioNo">
                           <input type="radio" value="false"
                             {...register("business._extension.soleProprietorship", { required: false })}
                             defaultChecked={apiGetData.business._extension.soleProprietorship === "false"}
-                            onChange={handleSolePropChange}
+                            // onChange={handleSolePropChange}
                             id="radioNo" /> No </label>
                       </div>
                     </Col>
@@ -124,7 +132,7 @@ const ApplicationForm = (props: any) => {
                       />
                     </Col>
                   </Row>
-                   {getValues("business._extension.soleProprietorship") === "true" && <Row>
+                  {getValues("business._extension.soleProprietorship") === "true" && <Row>
                     <Col>
                       <Controller
                         control={control}
@@ -132,18 +140,18 @@ const ApplicationForm = (props: any) => {
                         render={({ field }) =>
                           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Business Tax ID (EIN)</Form.Label>
-                            <NumberFormat format="##-#######" className="form-control"  placeholder="##-#######"
+                            <NumberFormat format="##-#######" className="form-control" placeholder="##-#######"
                               {...register("business.taxId", { required: false })} {...field} />
                           </Form.Group>}
                       />
                     </Col>
                   </Row>
                   }
-                   <Row>
+                  <Row>
                     <Col>
                       <Controller
                         control={control}
-                        name="business.phone" 
+                        name="business.phone"
                         render={({ field }) =>
                           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Business Phone Number</Form.Label>
@@ -153,7 +161,7 @@ const ApplicationForm = (props: any) => {
                       />
                     </Col>
                   </Row>
-                 <Row>
+                  <Row>
                     <Col>
                       <Controller
                         control={control}
@@ -166,7 +174,7 @@ const ApplicationForm = (props: any) => {
                           </Form.Group>}
                       />
                     </Col>
-                  </Row> 
+                  </Row>
                   <Row>
                     <Col>
                       <input type="submit" />
