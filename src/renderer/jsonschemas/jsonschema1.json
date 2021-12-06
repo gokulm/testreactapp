@@ -8,27 +8,28 @@
         "children": [{
             "name": "owners.0.firstName",
             "type": "text",
-            "class": "header",
             "placeHolder": "Please enter firstname",
             "children": []
         }, {
             "name": "owners.0.lastName",
             "type": "text",
-            "class": "header",
             "placeHolder": "Please enter firstname",
             "children": []
         }, {
             "type": "text",
             "name": "owners.0.address",
-            "class": "header",
             "placeHolder": "test placeholder 2",
             "children": []
         }, {
             "type": "dropdown",
             "name": "owners.0.state",
-            "class": "header",
             "placeHolder": "Select State",
             "dropdownValues": ["AL", "AK", "MD", "VA"],
+            "children": []
+        }, {
+            "type": "submit",
+            "name": "testSubmit",
+            "placeHolder": "Select State",
             "children": []
         }]
     }]

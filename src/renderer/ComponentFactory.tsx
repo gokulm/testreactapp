@@ -1,9 +1,8 @@
 import { Form } from "react-bootstrap";
-import { FieldValue, FieldValues, useFormContext, UseFormRegister } from "react-hook-form";
-import { IComponentAttribute } from "./JsonRenderer"
+import { FieldValues, UseFormRegister } from "react-hook-form";
+import { IComponentAttribute } from "./IComponentAttribute";
 
-export class ComponentFactory {
-
+class ComponentFactory {
     private _componentMapper: { [key: string]: Function } = {}
 
     constructor(private _register: UseFormRegister<FieldValues>) {
@@ -17,7 +16,7 @@ export class ComponentFactory {
     private renderFlexContainer(componentProps: IComponentAttribute) {
         return <div className="renderer-flex-container" style={componentProps.style}>
             {componentProps.children.map(c => <div> {this._componentMapper[c.type](c)} </div>)}</div>
-    }
+    } 
 
     private renderTextBox(componentProps: IComponentAttribute) {
         return <input type="text" placeholder={componentProps.placeHolder}
@@ -32,9 +31,14 @@ export class ComponentFactory {
         </Form.Select>
     }
 
+    public addComponent(key: string, rendererFunction: Function): void
+    {
+        this._componentMapper[key] = rendererFunction;
+    }
+
     public render(componentProps: IComponentAttribute) {
         return this._componentMapper[componentProps.type](componentProps);
     }
 }
 
-// export default ComponentFactory;
+export default ComponentFactory;
