@@ -16,23 +16,26 @@ class ComponentFactory {
     private renderFlexContainer(componentProps: IComponentAttribute) {
         return <div className="renderer-flex-container" style={componentProps.style}>
             {componentProps.children.map(c => <div className="renderer-flex-item"> {this._componentMapper[c.type](c)} </div>)}</div>
-    } 
+    }
 
     private renderTextBox(componentProps: IComponentAttribute) {
-        return <input type="text" placeholder={componentProps.placeHolder}
-            {...this._register(componentProps.name, { required: false })}
-            defaultValue={componentProps.defaultValue} />
+        return <Form.Group className="mb-3">
+            {componentProps.label && <Form.Label>{componentProps.label}</Form.Label>}
+            <Form.Control
+                {...this._register(componentProps.name, { required: false })} />
+        </Form.Group>
     }
 
     private renderDropDown(componentProps: IComponentAttribute) {
-        return <Form.Select   {...this._register(componentProps.name, { required: false })} >
-            <option value={undefined}>{componentProps.placeHolder}</option>
-            {componentProps.dropdownValues?.map(d => <option value={d}>{d}</option>)}
-        </Form.Select>
+        return <Form.Group className="mb-3">
+            {componentProps.label && <Form.Label>{componentProps.label}</Form.Label>}
+            <Form.Select   {...this._register(componentProps.name, { required: false })} >
+                <option value={undefined}>{componentProps.placeHolder}</option>
+                {componentProps.dropdownValues?.map(d => <option value={d}>{d}</option>)}
+            </Form.Select></Form.Group>
     }
 
-    public addComponent(key: string, rendererFunction: Function): void
-    {
+    public addComponent(key: string, rendererFunction: Function): void {
         this._componentMapper[key] = rendererFunction;
     }
 

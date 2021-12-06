@@ -8,4 +8,5 @@ export interface IComponentAttribute {
     defaultValue?: string;
     name: string;
     dropdownValues?: any[];
+    label?: string
 }

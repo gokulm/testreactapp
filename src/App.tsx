@@ -21,24 +21,24 @@ function App() {
 
       <Router>
         <ul className="navigation">
-          <li>
+          {/* <li>
             <Link to="/">Home</Link>
           </li>
-          {/* <li>
-              <Link to="/welcome">Welcome</Link>
-            </li> */}
           <li>
+              <Link to="/welcome">Welcome</Link>
+            </li>
+          <li> 
             <Link to="/layout1">Layout1</Link>
-          </li>
+          </li>*/}
           <li>
             <Link to="/layout2">Layout2</Link>
           </li>
           <li>
             <Link to="/layout3">Layout3</Link>
           </li>
-          <li>
+          {/* <li>
             <Link to="/layout4">Layout4</Link>
-          </li>
+          </li> */}
           <li>
             <Link to="/bankerportal">Banker Portal</Link>
           </li>

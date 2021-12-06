@@ -2,14 +2,19 @@
     display: flex;
     flex-flow: column wrap;
     justify-content: center;
-    align-content: center;
+    // align-content: center;
     gap: 5px 5px;
     margin: auto;
-    background-color: #c6c6c6;
-    width: 70%;
+    background-color: #f3f1f1;
+    border: #000 solid 1px;
+    width: 50%;
     padding: 20px;
 }
 
 .renderer-flex-item {
     flex-grow: 1;
+
+    // input {
+    //     width: 80%;
+    // }
 }
