@@ -15,7 +15,7 @@ class ComponentFactory {
 
     private renderFlexContainer(componentProps: IComponentAttribute) {
         return <div className="renderer-flex-container" style={componentProps.style}>
-            {componentProps.children.map(c => <div> {this._componentMapper[c.type](c)} </div>)}</div>
+            {componentProps.children.map(c => <div className="renderer-flex-item"> {this._componentMapper[c.type](c)} </div>)}</div>
     } 
 
     private renderTextBox(componentProps: IComponentAttribute) {
