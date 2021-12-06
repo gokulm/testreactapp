@@ -1,38 +1,52 @@
 import { Form } from "react-bootstrap";
-import { FieldValues, UseFormRegister } from "react-hook-form";
+import { FieldValues, UseFormRegister, UseFormReturn } from "react-hook-form";
 import { IComponentAttribute } from "./IComponentAttribute";
 
 class ComponentFactory {
     private _componentMapper: { [key: string]: Function } = {}
 
-    constructor(private _register: UseFormRegister<FieldValues>) {
+    constructor(private _methods: any) {
         this._componentMapper = {
             "flex": (componentProps: any) => this.renderFlexContainer(componentProps),
             "text": (componentProps: any) => this.renderTextBox(componentProps),
-            "dropdown": (componentProps: any) => this.renderDropDown(componentProps)
+            "dropdown": (componentProps: any) => this.renderDropDown(componentProps),
+            "radiobuttons": (componentProps: any) => this.renderRadioButtons(componentProps)
         }
     }
 
     private renderFlexContainer(componentProps: IComponentAttribute) {
         return <div className="renderer-flex-container" style={componentProps.style}>
-            {componentProps.children.map(c => <div className="renderer-flex-item"> {this._componentMapper[c.type](c)} </div>)}</div>
+            {componentProps.children.map((c, i) => <div className="renderer-flex-item" key={i}> {this._componentMapper[c.type](c)} </div>)}</div>
     }
 
     private renderTextBox(componentProps: IComponentAttribute) {
         return <Form.Group className="mb-3">
             {componentProps.label && <Form.Label>{componentProps.label}</Form.Label>}
             <Form.Control
-                {...this._register(componentProps.name, { required: false })} />
+                {...this._methods.register(componentProps.name, { required: false })} />
         </Form.Group>
     }
 
     private renderDropDown(componentProps: IComponentAttribute) {
         return <Form.Group className="mb-3">
             {componentProps.label && <Form.Label>{componentProps.label}</Form.Label>}
-            <Form.Select   {...this._register(componentProps.name, { required: false })} >
+            <Form.Select   {...this._methods.register(componentProps.name, { required: false })} >
                 <option value={undefined}>{componentProps.placeHolder}</option>
                 {componentProps.dropdownValues?.map(d => <option value={d}>{d}</option>)}
             </Form.Select></Form.Group>
+    }
+
+    private renderRadioButtons(componentProps: IComponentAttribute) {
+        return <div className="text-input__input-container">
+            {componentProps.radioButtons?.map(d => {
+                return (
+                    <><input type="radio" value={d.value} id={`${componentProps.name}_${d.value}`}
+                        {...this._methods.register("business._extension.soleProprietorship", { required: false })}
+                        defaultChecked={this._methods.getValues(componentProps.name) === d.value}
+                    /> <label htmlFor={`${componentProps.name}_${d.value}`}>{d.label} </label></>
+                )
+            })}
+        </div>
     }
 
     public addComponent(key: string, rendererFunction: Function): void {

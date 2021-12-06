@@ -8,5 +8,12 @@ export interface IComponentAttribute {
     defaultValue?: string;
     name: string;
     dropdownValues?: any[];
-    label?: string
+    label?: string,
+    radioButtons?: IRadioButton[]
+}
+
+export interface IRadioButton
+{
+    value: string,
+    label: string
 }

@@ -10,8 +10,8 @@ interface IProps {
 }
 
 const JsonRenderer = (props: IProps) => {
-    const { register } = useFormContext();
-    const componentFactory = props.componentFactory ?? new ComponentFactory(register);
+    const methods = useFormContext();
+    const componentFactory = props.componentFactory ?? new ComponentFactory(methods);
 
     return (
         <>

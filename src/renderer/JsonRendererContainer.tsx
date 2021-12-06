@@ -8,7 +8,7 @@ import ComponentFactory from "./ComponentFactory";
 const JsonRendererContainer = () => {
     const methods = useForm({ defaultValues: apiData })
     const onSubmit = (testData: any) => console.log(testData);
-    const componentFactory = new ComponentFactory(methods.register);
+    const componentFactory = new ComponentFactory(methods);
     componentFactory.addComponent("submit", (componentProps: any) =>
         renderSubmit(componentProps))
 
