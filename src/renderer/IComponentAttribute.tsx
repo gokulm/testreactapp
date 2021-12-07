@@ -9,7 +9,8 @@ export interface IComponentAttribute {
     name: string;
     dropdownValues?: any[];
     label?: string,
-    radioButtons?: IRadioButton[]
+    radioButtons?: IRadioButton[],
+    radioButtonChecklist?: string[]
 }
 
 export interface IRadioButton

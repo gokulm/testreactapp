@@ -14,10 +14,11 @@
             "children": [
                 {
                     "name": "business._extension.soleProprietorship",
-                    "type": "radiobuttons",
-                    "label": "First Name",
+                    "type": "radiobuttonwithlist",
+                    "label": "Is the business you're filling out this application for a sole proprietorship?",
                     "placeHolder": "Please enter firstname",
                     "children": [],
+                    "radioButtonChecklist": ["Pawn Broker", "Currency Exchanger", "Check Casher"],
                     "radioButtons": [
                         {
                             "value": "true",

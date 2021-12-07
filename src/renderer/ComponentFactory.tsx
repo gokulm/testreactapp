@@ -1,5 +1,4 @@
 import { Form } from "react-bootstrap";
-import { FieldValues, UseFormRegister, UseFormReturn } from "react-hook-form";
 import { IComponentAttribute } from "./IComponentAttribute";
 
 class ComponentFactory {
@@ -10,7 +9,8 @@ class ComponentFactory {
             "flex": (componentProps: any) => this.renderFlexContainer(componentProps),
             "text": (componentProps: any) => this.renderTextBox(componentProps),
             "dropdown": (componentProps: any) => this.renderDropDown(componentProps),
-            "radiobuttons": (componentProps: any) => this.renderRadioButtons(componentProps)
+            "radiobuttons": (componentProps: any) => this.renderRadioButtons(componentProps),
+            "submit": (componentProps: any) => this.renderSubmit(componentProps)
         }
     }
 
@@ -37,16 +37,20 @@ class ComponentFactory {
     }
 
     private renderRadioButtons(componentProps: IComponentAttribute) {
-        return <div className="text-input__input-container">
+        return <Form.Group className="mb-3">
+            {componentProps.label && <Form.Label>{componentProps.label}</Form.Label>} <br />
             {componentProps.radioButtons?.map(d => {
                 return (
                     <><input type="radio" value={d.value} id={`${componentProps.name}_${d.value}`}
-                        {...this._methods.register("business._extension.soleProprietorship", { required: false })}
+                        {...this._methods.register(componentProps.name, { required: false })}
                         defaultChecked={this._methods.getValues(componentProps.name) === d.value}
-                    /> <label htmlFor={`${componentProps.name}_${d.value}`}>{d.label} </label></>
+                    /> <label htmlFor={`${componentProps.name}_${d.value}`}> {d.label} </label></>
                 )
-            })}
-        </div>
+            })}</Form.Group>
+    }
+
+    private renderSubmit(componentProps: IComponentAttribute)  {
+        return <input type="submit" />
     }
 
     public addComponent(key: string, rendererFunction: Function): void {
