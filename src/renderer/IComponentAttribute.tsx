@@ -1,3 +1,5 @@
+import { RulesLogic } from "json-logic-js";
+
 export interface IComponentAttribute {
     type: string;
     class?: string;
@@ -10,7 +12,9 @@ export interface IComponentAttribute {
     dropdownValues?: any[];
     label?: string,
     radioButtons?: IRadioButton[],
-    radioButtonChecklist?: string[]
+    radioButtonChecklist?: string[],
+    format?: string,
+    rules?: any
 }
 
 export interface IRadioButton

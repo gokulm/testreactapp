@@ -94,5 +94,7 @@
     "userId": "auth0|61a07e01f68344555a509df5",
     "version": 9,
     "product": "loc",
-    "salesChannel": "APP_UI"
+    "salesChannel": "APP_UI",
+    "rules": { "==": [{ "var": "temp" }, "true"] },
+    "rulesData": { "temp": "true", "pie": { "filling": "apple" } }
 }
