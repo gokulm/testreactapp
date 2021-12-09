@@ -7,6 +7,7 @@ import ComponentFactory from "./ComponentFactory";
 import { Form } from "react-bootstrap";
 import jsonLogic, { RulesLogic } from "json-logic-js"
 import NumberFormat from "react-number-format";
+import { useEffect, useState } from "react";
 
 const JsonRendererContainer = () => {
     const methods = useForm({ defaultValues: apiData })
@@ -16,16 +17,44 @@ const JsonRendererContainer = () => {
         renderRadioButtonWithList(componentProps));
     componentFactory.addComponent("number", (componentProps: any) =>
         renderNumber(componentProps));
+    const rulesDictionary: { [key: string]: Function } = {};
+    const rulesDictionaryResult: { [key: string]: boolean } = {};
+    const [stateDictionaryResult, setstateDictionaryResult] = useState<{ [key: string]: boolean }>({});
 
     const result = jsonLogic.apply(apiData.rules as RulesLogic, apiData.rulesData);
 
+    useEffect(() => {
+        const subscription = methods.watch((value, { name, type }) => {
+            // if (name === 'business._extension.soleProprietorship') {
+            //     getJsonLogicResult(null);
+            // }
+
+            if (name && rulesDictionary[name]) {
+                console.log("rulesDictionary hit", name, type)
+                // rulesDictionaryResult[name] = rulesDictionary[name]();
+                // setstateDictionaryResult(rulesDictionaryResult);
+                // setstateDictionaryResult({[name]: rulesDictionaryResult[name]});
+                setstateDictionaryResult(prevState => ({
+                    ...prevState,
+                    [name]: rulesDictionary[name]()
+                }));
+                // console.log("rulesDictionaryResult", rulesDictionaryResult[name])
+                console.log("state dictionary", stateDictionaryResult);
+            }
+        });
+        return () => subscription.unsubscribe();
+    }, [methods.watch]);
+
     const getJsonLogicResult = (logic: any): boolean => {
-        if (logic) {
-            let result = jsonLogic.apply(logic as RulesLogic, methods.getValues());
-            console.log("jsonLogic: ", result);
-            return result as boolean;
-        }
-        return false;
+        // if (logic) {
+        //     // let result = jsonLogic.apply(logic as RulesLogic, methods.getValues());
+        //     let result = jsonLogic.apply(logic as RulesLogic, methods.getValues());
+        //     console.log("jsonLogic: ", result);
+        //     return result as boolean;
+        // }
+        // return false; 
+        console.log("getJsonLogicResult triggered");
+        return methods.getValues("business._extension.soleProprietorship") === "true";
     }
 
     const renderRadioButtonWithList = (componentProps: IComponentAttribute) => {
@@ -45,7 +74,19 @@ const JsonRendererContainer = () => {
     }
 
     const renderNumber = (componentProps: IComponentAttribute) => {
-        return <>{getJsonLogicResult(componentProps.rules) && <Controller
+
+        if (componentProps.rules) {
+            rulesDictionary["business._extension.soleProprietorship"] = () => {
+                let result = jsonLogic.apply(componentProps.rules as RulesLogic, methods.getValues());
+                console.log("renderNumber result", result);
+                return result as boolean;
+            }
+        }
+
+        // rulesDictionaryResult["business._extension.soleProprietorship"] = rulesDictionary["business._extension.soleProprietorship"]();
+        // setstateDictionaryResult(rulesDictionaryResult);
+
+        return <>{stateDictionaryResult["business._extension.soleProprietorship"] && <Controller
             control={(methods as any).control}
             name="business.taxId"
             render={({ field }) =>
