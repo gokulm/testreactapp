@@ -18,44 +18,35 @@ const JsonRendererContainer = () => {
     componentFactory.addComponent("number", (componentProps: any) =>
         renderNumber(componentProps));
     const rulesDictionary: { [key: string]: Function } = {};
-    const rulesDictionaryResult: { [key: string]: boolean } = {};
     const [stateDictionaryResult, setstateDictionaryResult] = useState<{ [key: string]: boolean }>({});
 
-    const result = jsonLogic.apply(apiData.rules as RulesLogic, apiData.rulesData);
+    // const result = jsonLogic.apply(apiData.rules as RulesLogic, apiData.rulesData);
 
     useEffect(() => {
         const subscription = methods.watch((value, { name, type }) => {
-            // if (name === 'business._extension.soleProprietorship') {
-            //     getJsonLogicResult(null);
-            // }
-
             if (name && rulesDictionary[name]) {
                 console.log("rulesDictionary hit", name, type)
-                // rulesDictionaryResult[name] = rulesDictionary[name]();
-                // setstateDictionaryResult(rulesDictionaryResult);
-                // setstateDictionaryResult({[name]: rulesDictionaryResult[name]});
                 setstateDictionaryResult(prevState => ({
                     ...prevState,
                     [name]: rulesDictionary[name]()
                 }));
-                // console.log("rulesDictionaryResult", rulesDictionaryResult[name])
                 console.log("state dictionary", stateDictionaryResult);
             }
         });
         return () => subscription.unsubscribe();
     }, [methods.watch]);
 
-    const getJsonLogicResult = (logic: any): boolean => {
-        // if (logic) {
-        //     // let result = jsonLogic.apply(logic as RulesLogic, methods.getValues());
-        //     let result = jsonLogic.apply(logic as RulesLogic, methods.getValues());
-        //     console.log("jsonLogic: ", result);
-        //     return result as boolean;
-        // }
-        // return false; 
-        console.log("getJsonLogicResult triggered");
-        return methods.getValues("business._extension.soleProprietorship") === "true";
-    }
+    // const getJsonLogicResult = (logic: any): boolean => {
+    //     // if (logic) {
+    //     //     // let result = jsonLogic.apply(logic as RulesLogic, methods.getValues());
+    //     //     let result = jsonLogic.apply(logic as RulesLogic, methods.getValues());
+    //     //     console.log("jsonLogic: ", result);
+    //     //     return result as boolean;
+    //     // }
+    //     // return false; 
+    //     console.log("getJsonLogicResult triggered");
+    //     return methods.getValues("business._extension.soleProprietorship") === "true";
+    // }
 
     const renderRadioButtonWithList = (componentProps: IComponentAttribute) => {
         return <Form.Group className="mb-3">
@@ -82,9 +73,6 @@ const JsonRendererContainer = () => {
                 return result as boolean;
             }
         }
-
-        // rulesDictionaryResult["business._extension.soleProprietorship"] = rulesDictionary["business._extension.soleProprietorship"]();
-        // setstateDictionaryResult(rulesDictionaryResult);
 
         return <>{stateDictionaryResult["business._extension.soleProprietorship"] && <Controller
             control={(methods as any).control}
