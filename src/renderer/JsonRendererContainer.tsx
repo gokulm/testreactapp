@@ -36,18 +36,6 @@ const JsonRendererContainer = () => {
         return () => subscription.unsubscribe();
     }, [methods.watch]);
 
-    // const getJsonLogicResult = (logic: any): boolean => {
-    //     // if (logic) {
-    //     //     // let result = jsonLogic.apply(logic as RulesLogic, methods.getValues());
-    //     //     let result = jsonLogic.apply(logic as RulesLogic, methods.getValues());
-    //     //     console.log("jsonLogic: ", result);
-    //     //     return result as boolean;
-    //     // }
-    //     // return false; 
-    //     console.log("getJsonLogicResult triggered");
-    //     return methods.getValues("business._extension.soleProprietorship") === "true";
-    // }
-
     const renderRadioButtonWithList = (componentProps: IComponentAttribute) => {
         return <Form.Group className="mb-3">
             {componentProps.label && <Form.Label>{componentProps.label}</Form.Label>} <br />
@@ -66,24 +54,33 @@ const JsonRendererContainer = () => {
 
     const renderNumber = (componentProps: IComponentAttribute) => {
 
-        if (componentProps.rules) {
-            rulesDictionary["business._extension.soleProprietorship"] = () => {
-                let result = jsonLogic.apply(componentProps.rules as RulesLogic, methods.getValues());
-                console.log("renderNumber result", result);
-                return result as boolean;
-            }
+        let number = () => {
+            return <Controller
+                control={(methods as any).control}
+                name="business.taxId"
+                render={({ field }) =>
+                    <Form.Group className="mb-3">
+                        {componentProps.label && <Form.Label>{componentProps.label}</Form.Label>}
+                        <NumberFormat format={componentProps.format} className="form-control" placeholder={componentProps.format}
+                            {...(methods as any).register(componentProps.name, { required: false })} {...field} />
+                    </Form.Group>}
+            />
         }
 
-        return <>{stateDictionaryResult["business._extension.soleProprietorship"] && <Controller
-            control={(methods as any).control}
-            name="business.taxId"
-            render={({ field }) =>
-                <Form.Group className="mb-3">
-                    {componentProps.label && <Form.Label>{componentProps.label}</Form.Label>}
-                    <NumberFormat format={componentProps.format} className="form-control" placeholder={componentProps.format}
-                        {...(methods as any).register(componentProps.name, { required: false })} {...field} />
-                </Form.Group>}
-        />}</>
+        if (componentProps.rule) {
+            rulesDictionary[componentProps.rule.variable] = () => {
+                if (componentProps.rule) {
+                    let result = jsonLogic.apply(componentProps.rule.logic as RulesLogic, methods.getValues());
+                    console.log("renderNumber result", result);
+                    return result as boolean;
+                }
+                return false;
+            }
+
+            return <>{stateDictionaryResult[componentProps.rule.variable] && number()}</>
+        }
+
+        return number();
     }
 
     return (
@@ -91,7 +88,6 @@ const JsonRendererContainer = () => {
             <form onSubmit={methods.handleSubmit(onSubmit)}>
                 <JsonRenderer schema={jsonschema1.components} data={apiData}
                     componentFactory={componentFactory} />
-                {/* <input type="submit" /> */}
             </form>
         </FormProvider>)
 }
