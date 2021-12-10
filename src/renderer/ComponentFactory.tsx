@@ -20,17 +20,21 @@ class ComponentFactory {
     }
 
     private renderTextBox(componentProps: IComponentAttribute) {
+        // console.log(componentProps);
         return <Form.Group className="mb-3">
             {componentProps.label && <Form.Label>{componentProps.label}</Form.Label>}
             <Form.Control
-                {...this._methods.register(componentProps.name, { required: false })} />
+                {...this._methods.register(componentProps.name, {  required: componentProps.required })} placeholder={componentProps.placeHolder} />
+            {this._methods.formState.errors[componentProps.name] && this._methods.formState.errors[componentProps.name].type === "required" && (
+                <Form.Label>This is required</Form.Label>
+            )}
         </Form.Group>
     }
 
     private renderDropDown(componentProps: IComponentAttribute) {
         return <Form.Group className="mb-3">
             {componentProps.label && <Form.Label>{componentProps.label}</Form.Label>}
-            <Form.Select   {...this._methods.register(componentProps.name, { required: false })} >
+            <Form.Select   {...this._methods.register(componentProps.name, { required: componentProps.required })} >
                 <option value={undefined}>{componentProps.placeHolder}</option>
                 {componentProps.dropdownValues?.map(d => <option value={d}>{d}</option>)}
             </Form.Select></Form.Group>
@@ -42,14 +46,14 @@ class ComponentFactory {
             {componentProps.radioButtons?.map(d => {
                 return (
                     <><input type="radio" value={d.value} id={`${componentProps.name}_${d.value}`}
-                        {...this._methods.register(componentProps.name, { required: false })}
+                        {...this._methods.register(componentProps.name, { required: componentProps.required })}
                         defaultChecked={this._methods.getValues(componentProps.name) === d.value}
                     /> <label htmlFor={`${componentProps.name}_${d.value}`}> {d.label} </label></>
                 )
             })}</Form.Group>
     }
 
-    private renderSubmit(componentProps: IComponentAttribute)  {
+    private renderSubmit(componentProps: IComponentAttribute) {
         return <input type="submit" />
     }
 

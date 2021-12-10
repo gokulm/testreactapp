@@ -18,6 +18,7 @@
                     "label": "Is the business you're filling out this application for a sole proprietorship?",
                     "placeHolder": "Please enter firstname",
                     "children": [],
+                    "required": true,
                     "radioButtonChecklist": [
                         "Pawn Broker",
                         "Currency Exchanger",
@@ -37,20 +38,23 @@
                 {
                     "name": "owners.0.firstName",
                     "type": "text",
+                    "required": true,
                     "label": "First Name",
-                    "placeHolder": "Please enter firstname",
+                    "placeHolder": "Please enter first name",
                     "children": []
                 },
                 {
                     "name": "owners.0.lastName",
                     "type": "text",
+                    "required": true,
                     "label": "Last Name",
-                    "placeHolder": "Please enter firstname",
+                    "placeHolder": "Please enter last name",
                     "children": []
                 },
                 {
                     "type": "text",
                     "name": "owners.0.address",
+                    "required": true,
                     "label": "Street",
                     "placeHolder": "test placeholder 2",
                     "children": []
@@ -58,6 +62,7 @@
                 {
                     "type": "dropdown",
                     "name": "owners.0.state",
+                    "required": true,
                     "label": "State",
                     "placeHolder": "Select State",
                     "dropdownValues": [
@@ -70,6 +75,7 @@
                 },
                 {
                     "type": "number",
+                    "required": true,
                     "format": "##-#######",
                     "name": "business.taxId",
                     "label": "Business Tax ID (EIN)",

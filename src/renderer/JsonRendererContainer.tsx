@@ -11,7 +11,10 @@ import { useEffect, useState } from "react";
 
 const JsonRendererContainer = () => {
     const methods = useForm({ defaultValues: apiData })
-    const onSubmit = (testData: any) => console.log(testData);
+    const onSubmit = (testData: any) => {
+        console.log("errors:", methods.formState.errors);
+        console.log("submitted form: ", testData);
+    }
     const componentFactory = new ComponentFactory(methods);
     componentFactory.addComponent("radiobuttonwithlist", (componentProps: any) =>
         renderRadioButtonWithList(componentProps));
@@ -19,8 +22,6 @@ const JsonRendererContainer = () => {
         renderNumber(componentProps));
     const rulesDictionary: { [key: string]: Function } = {};
     const [stateDictionaryResult, setstateDictionaryResult] = useState<{ [key: string]: boolean }>({});
-
-    // const result = jsonLogic.apply(apiData.rules as RulesLogic, apiData.rulesData);
 
     useEffect(() => {
         const subscription = methods.watch((value, { name, type }) => {
@@ -32,7 +33,10 @@ const JsonRendererContainer = () => {
                 }));
                 console.log("state dictionary", stateDictionaryResult);
             }
+            console.log("errors: ", methods.formState.errors);
         });
+
+
         return () => subscription.unsubscribe();
     }, [methods.watch]);
 
@@ -62,7 +66,10 @@ const JsonRendererContainer = () => {
                     <Form.Group className="mb-3">
                         {componentProps.label && <Form.Label>{componentProps.label}</Form.Label>}
                         <NumberFormat format={componentProps.format} className="form-control" placeholder={componentProps.format}
-                            {...(methods as any).register(componentProps.name, { required: false })} {...field} />
+                            {...(methods as any).register(componentProps.name, { required: componentProps.required })} {...field} />
+                        {(methods as any).formState.errors[componentProps.name] && (methods as any).formState.errors[componentProps.name].type === "required" && (
+                            <Form.Label>This is required</Form.Label>
+                        )}
                     </Form.Group>}
             />
         }

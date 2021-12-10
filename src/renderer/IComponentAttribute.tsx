@@ -4,6 +4,7 @@ export interface IComponentAttribute {
     type: string;
     name: string;
     children: IComponentAttribute[];
+    required?: boolean;
     class?: string;
     id?: string;
     placeHolder?: string;

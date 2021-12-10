@@ -93,7 +93,7 @@ const ApplicationForm = (props: any) => {
                           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Doing Business As (DBA), If Applicable</Form.Label>
                             <Form.Control
-                              {...register("business.doingBusinessAs", { required: false })} {...field} />
+                              {...register("business.doingBusinessAs", { required: false })} {...field} placeholder="Enter business name"/>
                           </Form.Group>}
                       />
                     </Col>
