@@ -24,7 +24,7 @@ class ComponentFactory {
         return <Form.Group className="mb-3">
             {componentProps.label && <Form.Label>{componentProps.label}</Form.Label>}
             <Form.Control
-                {...this._methods.register(componentProps.name, {  required: componentProps.required })} placeholder={componentProps.placeHolder} />
+                {...this._methods.register(componentProps.name, {  required: componentProps.required, message: componentProps.placeHolder })} placeholder={componentProps.placeHolder} />
             {this._methods.formState.errors[componentProps.name] && this._methods.formState.errors[componentProps.name].type === "required" && (
                 <Form.Label>This is required</Form.Label>
             )}
