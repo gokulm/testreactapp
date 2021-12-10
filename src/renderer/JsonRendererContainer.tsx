@@ -10,7 +10,7 @@ import NumberFormat from "react-number-format";
 import { useEffect, useState } from "react";
 
 const JsonRendererContainer = () => {
-    const methods = useForm({ defaultValues: apiData })
+    const methods = useForm({ defaultValues: apiData, mode: "onTouched" })
     const onSubmit = (testData: any) => {
         console.log("errors:", methods.formState.errors);
         console.log("submitted form: ", testData);
@@ -77,9 +77,7 @@ const JsonRendererContainer = () => {
         if (componentProps.rule) {
             rulesDictionary[componentProps.rule.variable] = () => {
                 if (componentProps.rule) {
-                    let result = jsonLogic.apply(componentProps.rule.logic as RulesLogic, methods.getValues());
-                    console.log("renderNumber result", result);
-                    return result as boolean;
+                    return jsonLogic.apply(componentProps.rule.logic as RulesLogic, methods.getValues()) as boolean;
                 }
                 return false;
             }
