@@ -1,4 +1,5 @@
 import { Form } from "react-bootstrap";
+import { get } from "react-hook-form";
 import { IComponentAttribute } from "./IComponentAttribute";
 
 class ComponentFactory {
@@ -20,14 +21,13 @@ class ComponentFactory {
     }
 
     private renderTextBox(componentProps: IComponentAttribute) {
-        // console.log(componentProps);
+        const error = get(this._methods.formState.errors, componentProps.name);
         return <Form.Group className="mb-3">
             {componentProps.label && <Form.Label>{componentProps.label}</Form.Label>}
             <Form.Control
-                {...this._methods.register(componentProps.name, {  required: componentProps.required, message: componentProps.placeHolder })} placeholder={componentProps.placeHolder} />
-            {this._methods.formState.errors[componentProps.name] && this._methods.formState.errors[componentProps.name].type === "required" && (
-                <Form.Label>This is required</Form.Label>
-            )}
+                {...this._methods.register(componentProps.name, { required: { value: componentProps.required, message: componentProps.placeHolder } })}
+                placeholder={componentProps.placeHolder} />
+            {error && <span className="alert">{error.message}</span>}
         </Form.Group>
     }
 

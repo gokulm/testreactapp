@@ -1,105 +1,100 @@
 {
-    "components": [
-        {
-            "type": "flex",
-            "name": "layout",
-            "class": "header",
-            "defaultValue": "test",
-            "dropdownValues": [
-                "AL",
-                "AK",
-                "MD",
-                "VA"
-            ],
-            "children": [
-                {
-                    "name": "business._extension.soleProprietorship",
-                    "type": "radiobuttonwithlist",
-                    "label": "Is the business you're filling out this application for a sole proprietorship?",
-                    "placeHolder": "Please enter firstname",
-                    "children": [],
-                    "required": true,
-                    "radioButtonChecklist": [
-                        "Pawn Broker",
-                        "Currency Exchanger",
-                        "Check Casher"
-                    ],
-                    "radioButtons": [
-                        {
-                            "value": "true",
-                            "label": "Yes"
-                        },
-                        {
-                            "value": "false",
-                            "label": "No"
-                        }
-                    ]
-                },
-                {
-                    "name": "owners.0.firstName",
-                    "type": "text",
-                    "required": true,
-                    "label": "First Name",
-                    "placeHolder": "Please enter first name",
-                    "children": []
-                },
-                {
-                    "name": "owners.0.lastName",
-                    "type": "text",
-                    "required": true,
-                    "label": "Last Name",
-                    "placeHolder": "Please enter last name",
-                    "children": []
-                },
-                {
-                    "type": "text",
-                    "name": "owners.0.address",
-                    "required": true,
-                    "label": "Street",
-                    "placeHolder": "test placeholder 2",
-                    "children": []
-                },
-                {
-                    "type": "dropdown",
-                    "name": "owners.0.state",
-                    "required": true,
-                    "label": "State",
-                    "placeHolder": "Select State",
-                    "dropdownValues": [
-                        "AL",
-                        "AK",
-                        "MD",
-                        "VA"
-                    ],
-                    "children": []
-                },
-                {
-                    "type": "number",
-                    "required": true,
-                    "format": "##-#######",
-                    "name": "business.taxId",
-                    "label": "Business Tax ID (EIN)",
-                    "placeHolder": "##-#######",
-                    "children": [],
-                    "rule": {
-                        "variable": "business._extension.soleProprietorship",
-                        "logic": {
-                            "==": [
-                                {
-                                    "var": "business._extension.soleProprietorship"
-                                },
-                                "true"
-                            ]
-                        }
+    "components": [{
+        "type": "flex",
+        "name": "layout",
+        "class": "header",
+        "defaultValue": "test",
+        "dropdownValues": [
+            "AL",
+            "AK",
+            "MD",
+            "VA"
+        ],
+        "children": [{
+                "name": "business._extension.soleProprietorship",
+                "type": "radiobuttonwithlist",
+                "label": "Is the business you're filling out this application for a sole proprietorship?",
+                "placeHolder": "Please enter firstname",
+                "children": [],
+                "required": true,
+                "radioButtonChecklist": [
+                    "Pawn Broker",
+                    "Currency Exchanger",
+                    "Check Casher"
+                ],
+                "radioButtons": [{
+                        "value": "true",
+                        "label": "Yes"
+                    },
+                    {
+                        "value": "false",
+                        "label": "No"
                     }
-                },
-                {
-                    "type": "submit",
-                    "name": "testSubmit",
-                    "placeHolder": "Select State",
-                    "children": []
+                ]
+            },
+            {
+                "name": "owners.0.firstName",
+                "type": "text",
+                "required": true,
+                "label": "First Name",
+                "placeHolder": "Please enter first name",
+                "children": []
+            },
+            {
+                "name": "owners.0.lastName",
+                "type": "text",
+                "required": true,
+                "label": "Last Name",
+                "placeHolder": "Please enter last name",
+                "children": []
+            },
+            {
+                "type": "text",
+                "name": "owners.0.address",
+                "required": true,
+                "label": "Street",
+                "placeHolder": "test placeholder 2",
+                "children": []
+            },
+            {
+                "type": "dropdown",
+                "name": "owners.0.state",
+                "required": true,
+                "label": "State",
+                "placeHolder": "Select State",
+                "dropdownValues": [
+                    "AL",
+                    "AK",
+                    "MD",
+                    "VA"
+                ],
+                "children": []
+            },
+            {
+                "type": "number",
+                "required": true,
+                "format": "##-#######",
+                "name": "business.taxId",
+                "label": "Business Tax ID (EIN)",
+                "placeHolder": "##-#######",
+                "children": [],
+                "rule": {
+                    "variable": "business._extension.soleProprietorship",
+                    "logic": {
+                        "==": [{
+                                "var": "business._extension.soleProprietorship"
+                            },
+                            "true"
+                        ]
+                    }
                 }
-            ]
-        }
-    ]
+            },
+            {
+                "type": "submit",
+                "name": "testSubmit",
+                "placeHolder": "Select State",
+                "children": []
+            }
+        ]
+    }]
 }

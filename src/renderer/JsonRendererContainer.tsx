@@ -1,4 +1,4 @@
-import { Controller, FormProvider, useForm } from "react-hook-form";
+import { Controller, FormProvider, get, useForm } from "react-hook-form";
 import JsonRenderer from "./JsonRenderer"
 import { IComponentAttribute } from "./IComponentAttribute";
 import jsonschema1 from "./jsonschemas/jsonschema1.json";
@@ -59,6 +59,8 @@ const JsonRendererContainer = () => {
     const renderNumber = (componentProps: IComponentAttribute) => {
 
         let number = () => {
+            const error = get((methods as any).formState.errors, componentProps.name);
+
             return <Controller
                 control={(methods as any).control}
                 name="business.taxId"
@@ -66,10 +68,8 @@ const JsonRendererContainer = () => {
                     <Form.Group className="mb-3">
                         {componentProps.label && <Form.Label>{componentProps.label}</Form.Label>}
                         <NumberFormat format={componentProps.format} className="form-control" placeholder={componentProps.format}
-                            {...(methods as any).register(componentProps.name, { required: componentProps.required })} {...field} />
-                        {(methods as any).formState.errors[componentProps.name] && (methods as any).formState.errors[componentProps.name].type === "required" && (
-                            <Form.Label>This is required</Form.Label>
-                        )}
+                            {...(methods as any).register(componentProps.name, { required: { value: componentProps.required, message: "Please enter Business Tax ID" } })} {...field} />
+                        {error && <span className="alert">{error.message}</span>}
                     </Form.Group>}
             />
         }
