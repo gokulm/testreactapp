@@ -9,6 +9,8 @@ import jsonLogic, { RulesLogic } from "json-logic-js"
 import NumberFormat from "react-number-format";
 import { useEffect, useState } from "react";
 
+// todo: dynamic controls, flex multi col layout, aggregate, validators
+
 const JsonRendererContainer = () => {
     const methods = useForm({ defaultValues: apiData, mode: "onTouched" })
     const onSubmit = (testData: any) => {

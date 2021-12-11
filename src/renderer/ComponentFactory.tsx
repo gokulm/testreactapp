@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { Form } from "react-bootstrap";
 import { get } from "react-hook-form";
 import { IComponentAttribute } from "./IComponentAttribute";
@@ -11,16 +12,38 @@ class ComponentFactory {
             "text": (componentProps: any) => this.renderTextBox(componentProps),
             "dropdown": (componentProps: any) => this.renderDropDown(componentProps),
             "radiobuttons": (componentProps: any) => this.renderRadioButtons(componentProps),
-            "submit": (componentProps: any) => this.renderSubmit(componentProps)
+            "submit": (componentProps: any) => this.renderSubmit(componentProps),
+            "dynamic": (componentProps: any) => this.renderDynamicContainer(componentProps)
         }
     }
 
+    private renderDynamicContainer(componentProps: IComponentAttribute) {
+        return componentProps.children.map((c, i) => {
+            c.baseIndex = i;
+            console.log("rendering dynamic. index: ", i, c.type);
+            // return (<div className="renderer-flex-container" style={c.style}>
+            //     <div className="renderer-flex-item" key={i}> {this._componentMapper[c.type](c)} </div>
+            // </div>)
+            return this.renderFlexContainer(c);
+        })
+    }
+
     private renderFlexContainer(componentProps: IComponentAttribute) {
+        console.log("rendering type: ", componentProps.type);
         return <div className="renderer-flex-container" style={componentProps.style}>
-            {componentProps.children.map((c, i) => <div className="renderer-flex-item" key={i}> {this._componentMapper[c.type](c)} </div>)}</div>
+            {componentProps.children.map((c, i) => {
+                console.log(`rendering flex. index: ${i}, type: ${c.type} baseIndex: ${componentProps.baseIndex}`);
+                if (componentProps.baseIndex != undefined) {
+                    c.name = c.name.replace("[index]", componentProps.baseIndex.toString());
+                    console.log("replaced name ", c.name);
+                }
+                return <div className="renderer-flex-item" key={i}> {this._componentMapper[c.type](c)} </div>
+            })
+            }</div>
     }
 
     private renderTextBox(componentProps: IComponentAttribute) {
+        console.log("rendering type: ", componentProps.type);
         const error = get(this._methods.formState.errors, componentProps.name);
         return <Form.Group className="mb-3">
             {componentProps.label && <Form.Label>{componentProps.label}</Form.Label>}
@@ -32,23 +55,25 @@ class ComponentFactory {
     }
 
     private renderDropDown(componentProps: IComponentAttribute) {
+        console.log("rendering type: ", componentProps.type);
         return <Form.Group className="mb-3">
             {componentProps.label && <Form.Label>{componentProps.label}</Form.Label>}
             <Form.Select   {...this._methods.register(componentProps.name, { required: componentProps.required })} >
                 <option value={undefined}>{componentProps.placeHolder}</option>
-                {componentProps.dropdownValues?.map(d => <option value={d}>{d}</option>)}
+                {componentProps.dropdownValues?.map((d, i) => <option key={i} value={d}>{d}</option>)}
             </Form.Select></Form.Group>
     }
 
     private renderRadioButtons(componentProps: IComponentAttribute) {
+        console.log("rendering type: ", componentProps.type);
         return <Form.Group className="mb-3">
             {componentProps.label && <Form.Label>{componentProps.label}</Form.Label>} <br />
-            {componentProps.radioButtons?.map(d => {
+            {componentProps.radioButtons?.map((d, i) => {
                 return (
-                    <><input type="radio" value={d.value} id={`${componentProps.name}_${d.value}`}
+                    <Fragment key={i}><input type="radio" value={d.value} id={`${componentProps.name}_${d.value}`}
                         {...this._methods.register(componentProps.name, { required: componentProps.required })}
                         defaultChecked={this._methods.getValues(componentProps.name) === d.value}
-                    /> <label htmlFor={`${componentProps.name}_${d.value}`}> {d.label} </label></>
+                    /> <label htmlFor={`${componentProps.name}_${d.value}`}> {d.label} </label></Fragment>
                 )
             })}</Form.Group>
     }

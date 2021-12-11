@@ -47,7 +47,11 @@
         "grossAnnualRevenue": "10000",
         "selfReportedRestrictedIndustry": false
     },
-    "coOwners": [],
+    "coOwners": [{
+        "lastName": "Smith",
+        "firstName": "Will",
+        "ownershipPercentage": 100
+    }],
     "consents": [{
         "type": "TERMS_AND_CONDITIONS",
         "ipAddress": "10.187.38.55",

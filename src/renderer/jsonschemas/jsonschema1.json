@@ -4,12 +4,6 @@
         "name": "layout",
         "class": "header",
         "defaultValue": "test",
-        "dropdownValues": [
-            "AL",
-            "AK",
-            "MD",
-            "VA"
-        ],
         "children": [{
                 "name": "business._extension.soleProprietorship",
                 "type": "radiobuttonwithlist",
@@ -90,9 +84,33 @@
                 }
             },
             {
+                "type": "dynamic",
+                "name": "layout2",
+                "children": [{
+                    "type": "flex",
+                    "name": "layout2",
+                    "children": [{
+                            "name": "coOwners.[index].firstName",
+                            "type": "text",
+                            "required": true,
+                            "label": "First Name",
+                            "placeHolder": "Please enter first name",
+                            "children": []
+                        },
+                        {
+                            "name": "coOwners.[index].lastName",
+                            "type": "text",
+                            "required": true,
+                            "label": "Last Name",
+                            "placeHolder": "Please enter last name",
+                            "children": []
+                        }
+                    ]
+                }]
+            },
+            {
                 "type": "submit",
                 "name": "testSubmit",
-                "placeHolder": "Select State",
                 "children": []
             }
         ]
