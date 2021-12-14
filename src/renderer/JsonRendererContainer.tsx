@@ -22,7 +22,12 @@ const JsonRendererContainer = () => {
         renderRadioButtonWithList(componentProps));
     componentFactory.addComponent("number", (componentProps: any) =>
         renderNumber(componentProps));
+    componentFactory.addComponent("addbutton", (componentProps: any) =>
+        renderAddButton(componentProps));
+    componentFactory.addComponent("dynamic", (componentProps: any) =>
+        renderDynamicContainer(componentProps));
     const rulesDictionary: { [key: string]: Function } = {};
+    const dynamicFormDictionary: { [key: string]: IComponentAttribute } = {};
     const [stateDictionaryResult, setstateDictionaryResult] = useState<{ [key: string]: boolean }>({});
 
     useEffect(() => {
@@ -41,6 +46,45 @@ const JsonRendererContainer = () => {
 
         return () => subscription.unsubscribe();
     }, [methods.watch]);
+
+    const add = () => {
+        // let temp = methods.getValues("coOwners");
+        // console.log("coOwners", temp);
+        // if (temp) {
+        //     let tempCoOwner = temp[0];
+        //     let newCoOwner = Object.assign({}, tempCoOwner);
+        //     console.log("newCoOwner", newCoOwner);
+        //     temp.push(newCoOwner);
+        //     methods.setValue("coOwners", temp);
+        // }
+        let childComponent = dynamicFormDictionary["coOwners"];
+        renderDynamicContainer(childComponent);
+    }
+
+    const renderAddButton = (componentProps: IComponentAttribute) => {
+        return <input type="button" value="Add" onClick={add} />
+    }
+
+    const renderDynamicContainer = (componentProps: IComponentAttribute) => {
+
+        if (componentProps.baseProperty) {
+            let count = ((methods as any).getValues(componentProps.baseProperty) as []).length;
+            console.log("dynamic prop length: ", count);
+            let childComponent = componentProps.children[0];
+            dynamicFormDictionary[componentProps.baseProperty] = componentProps;
+
+            for (let index = 0; index < count; index++) {
+                childComponent.baseIndex = 0;
+                return componentFactory.render(childComponent);
+            }
+            // return componentProps.children.map((c, i) => {
+            //     c.baseIndex = i;
+            //     return componentFactory.render(c);
+            // })
+        }
+
+        return null;
+    }
 
     const renderRadioButtonWithList = (componentProps: IComponentAttribute) => {
         return <Form.Group className="mb-3">

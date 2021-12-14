@@ -12,27 +12,16 @@ class ComponentFactory {
             "text": (componentProps: any) => this.renderTextBox(componentProps),
             "dropdown": (componentProps: any) => this.renderDropDown(componentProps),
             "radiobuttons": (componentProps: any) => this.renderRadioButtons(componentProps),
-            "submit": (componentProps: any) => this.renderSubmit(componentProps),
-            "dynamic": (componentProps: any) => this.renderDynamicContainer(componentProps)
+            "submit": (componentProps: any) => this.renderSubmit(componentProps)
+            // "dynamic": (componentProps: any) => this.renderDynamicContainer(componentProps)
         }
-    }
-
-    private renderDynamicContainer(componentProps: IComponentAttribute) {
-        return componentProps.children.map((c, i) => {
-            c.baseIndex = i;
-            console.log("rendering dynamic. index: ", i, c.type);
-            // return (<div className="renderer-flex-container" style={c.style}>
-            //     <div className="renderer-flex-item" key={i}> {this._componentMapper[c.type](c)} </div>
-            // </div>)
-            return this.renderFlexContainer(c);
-        })
     }
 
     private renderFlexContainer(componentProps: IComponentAttribute) {
         console.log("rendering type: ", componentProps.type);
         return <div className="renderer-flex-container" style={componentProps.style}>
             {componentProps.children.map((c, i) => {
-                console.log(`rendering flex. index: ${i}, type: ${c.type} baseIndex: ${componentProps.baseIndex}`);
+                // console.log(`rendering flex. index: ${i}, type: ${c.type} baseIndex: ${componentProps.baseIndex}`);
                 if (componentProps.baseIndex != undefined) {
                     c.name = c.name.replace("[index]", componentProps.baseIndex.toString());
                     console.log("replaced name ", c.name);

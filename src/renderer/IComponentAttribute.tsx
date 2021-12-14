@@ -16,7 +16,8 @@ export interface IComponentAttribute {
     radioButtonChecklist?: string[],
     format?: string,
     rule?: IRule,
-    baseIndex?: number
+    baseIndex?: number,
+    baseProperty?: string
 }
 
 export interface IRadioButton
