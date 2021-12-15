@@ -1,4 +1,4 @@
-import { Controller, FormProvider, get, useForm } from "react-hook-form";
+import { Controller, FormProvider, get, useFieldArray, useForm } from "react-hook-form";
 import JsonRenderer from "./JsonRenderer"
 import { IComponentAttribute } from "./IComponentAttribute";
 import jsonschema1 from "./jsonschemas/jsonschema1.json";
@@ -8,6 +8,7 @@ import { Form } from "react-bootstrap";
 import jsonLogic, { RulesLogic } from "json-logic-js"
 import NumberFormat from "react-number-format";
 import { useEffect, useState } from "react";
+import { cloneDeep } from "lodash";
 
 // todo: dynamic controls, flex multi col layout, aggregate, validators
 
@@ -26,9 +27,17 @@ const JsonRendererContainer = () => {
         renderAddButton(componentProps));
     componentFactory.addComponent("dynamic", (componentProps: any) =>
         renderDynamicContainer(componentProps));
+    componentFactory.addComponent("fieldarray", (componentProps: any) =>
+        renderUseFieldArray(componentProps));
     const rulesDictionary: { [key: string]: Function } = {};
     const dynamicFormDictionary: { [key: string]: IComponentAttribute } = {};
     const [stateDictionaryResult, setstateDictionaryResult] = useState<{ [key: string]: boolean }>({});
+
+    const {
+        fields: foodFields,
+        append: foodAppend,
+        remove: foodRemove
+    } = useFieldArray({ control: methods.control, name: "coOwners" });
 
     useEffect(() => {
         const subscription = methods.watch((value, { name, type }) => {
@@ -71,19 +80,47 @@ const JsonRendererContainer = () => {
             let count = ((methods as any).getValues(componentProps.baseProperty) as []).length;
             console.log("dynamic prop length: ", count);
             let childComponent = componentProps.children[0];
-            dynamicFormDictionary[componentProps.baseProperty] = componentProps;
+            dynamicFormDictionary[componentProps.baseProperty] = childComponent;
 
-            for (let index = 0; index < count; index++) {
-                childComponent.baseIndex = 0;
-                return componentFactory.render(childComponent);
-            }
-            // return componentProps.children.map((c, i) => {
-            //     c.baseIndex = i;
-            //     return componentFactory.render(c);
-            // })
+            // for (let index = 0; index < count; index++) {
+            //     childComponent.baseIndex = 0;
+            //     return componentFactory.render(childComponent);
+            // }
         }
 
         return null;
+    }
+
+    const renderUseFieldArray = (componentProps: IComponentAttribute) => {
+        return (
+            <>
+
+                {foodFields.map((item, index) => {
+                    console.log("fieldsarray index: ", index);
+                    let childComponent = cloneDeep(dynamicFormDictionary[componentProps.name]);
+                    console.log(childComponent);
+                    childComponent.baseIndex = index;
+                    return (
+                        // <li key={item.id}>
+                        //     {item.firstName} {item.lastName}
+
+                        //     <button type="button" onClick={() => foodRemove(index)}>
+                        //         Delete
+                        //     </button>
+                        // </li>
+                        componentFactory.render(childComponent)
+                    );
+                })}
+                <button
+                    type="button"
+                    onClick={() => {
+                        foodAppend({});
+                    }}
+                >
+                    Add CoOwner
+                </button>
+            </>
+        )
     }
 
     const renderRadioButtonWithList = (componentProps: IComponentAttribute) => {
