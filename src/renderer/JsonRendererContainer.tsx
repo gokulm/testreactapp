@@ -101,14 +101,10 @@ const JsonRendererContainer = () => {
                     console.log(childComponent);
                     childComponent.baseIndex = index;
                     return (
-                        // <li key={item.id}>
-                        //     {item.firstName} {item.lastName}
-
-                        //     <button type="button" onClick={() => foodRemove(index)}>
-                        //         Delete
-                        //     </button>
-                        // </li>
-                        componentFactory.render(childComponent)
+                       <> <button type="button" onClick={() => foodRemove(index)}>
+                            Delete
+                        </button>
+                        {componentFactory.render(childComponent)}</>
                     );
                 })}
                 <button
