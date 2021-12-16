@@ -9,6 +9,7 @@ import jsonLogic, { RulesLogic } from "json-logic-js"
 import NumberFormat from "react-number-format";
 import { useEffect, useState } from "react";
 import { cloneDeep } from "lodash";
+import DynamicFieldArray from "./DynamicFieldArray";
 
 // todo: dynamic controls, flex multi col layout, aggregate, validators
 
@@ -61,11 +62,6 @@ const JsonRendererContainer = () => {
             console.log("dynamic prop length: ", count);
             let childComponent = componentProps.children[0];
             dynamicFormDictionary[componentProps.baseProperty] = childComponent;
-
-            // for (let index = 0; index < count; index++) {
-            //     childComponent.baseIndex = 0;
-            //     return componentFactory.render(childComponent);
-            // }
         }
 
         return null;
@@ -74,8 +70,9 @@ const JsonRendererContainer = () => {
     const renderUseFieldArray = (componentProps: IComponentAttribute) => {
         return (
             <>
-
-                {foodFields.map((item, index) => {
+                <DynamicFieldArray name={componentProps.name} control={methods.control}
+                    componentFactory={componentFactory} dynamicFormDictionary={dynamicFormDictionary} />
+                {/* {foodFields.map((item, index) => {
                     console.log("fieldsarray index: ", index);
                     let childComponent = cloneDeep(dynamicFormDictionary[componentProps.name]);
                     console.log(childComponent);
@@ -94,7 +91,7 @@ const JsonRendererContainer = () => {
                     }}
                 >
                     Add CoOwner
-                </button>
+                </button> */}
             </>
         )
     }
