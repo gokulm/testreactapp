@@ -29,5 +29,6 @@ export interface IRadioButton
 export interface IRule
 {
     variable: string,
-    logic: any
+    logic: any,
+    ruleSet?: boolean
 }

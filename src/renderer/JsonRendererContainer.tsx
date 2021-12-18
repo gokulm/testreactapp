@@ -5,11 +5,9 @@ import jsonschema1 from "./jsonschemas/jsonschema1.json";
 import apiData from './data.json'
 import ComponentFactory from "./ComponentFactory";
 import { Form } from "react-bootstrap";
-import jsonLogic, { RulesLogic } from "json-logic-js"
 import NumberFormat from "react-number-format";
-import { useEffect, useState } from "react";
-import { cloneDeep } from "lodash";
 import DynamicFieldArray from "./DynamicFieldArray";
+import ConditionalRender from "./ConditionalRenderer";
 
 // todo: dynamic controls, flex multi col layout, aggregate, validators
 
@@ -28,32 +26,7 @@ const JsonRendererContainer = () => {
         renderDynamicContainer(componentProps));
     componentFactory.addComponent("fieldarray", (componentProps: any) =>
         renderUseFieldArray(componentProps));
-    const rulesDictionary: { [key: string]: Function } = {};
     const dynamicFormDictionary: { [key: string]: IComponentAttribute } = {};
-    const [stateDictionaryResult, setstateDictionaryResult] = useState<{ [key: string]: boolean }>({});
-
-    const {
-        fields: foodFields,
-        append: foodAppend,
-        remove: foodRemove
-    } = useFieldArray({ control: methods.control, name: "coOwners" });
-
-    useEffect(() => {
-        const subscription = methods.watch((value, { name, type }) => {
-            if (name && rulesDictionary[name]) {
-                console.log("rulesDictionary hit", name, type)
-                setstateDictionaryResult(prevState => ({
-                    ...prevState,
-                    [name]: rulesDictionary[name]()
-                }));
-                console.log("state dictionary", stateDictionaryResult);
-            }
-            console.log("errors: ", methods.formState.errors);
-        });
-
-
-        return () => subscription.unsubscribe();
-    }, [methods.watch]);
 
     const renderDynamicContainer = (componentProps: IComponentAttribute) => {
 
@@ -72,26 +45,6 @@ const JsonRendererContainer = () => {
             <>
                 <DynamicFieldArray name={componentProps.name} control={methods.control}
                     componentFactory={componentFactory} dynamicFormDictionary={dynamicFormDictionary} />
-                {/* {foodFields.map((item, index) => {
-                    console.log("fieldsarray index: ", index);
-                    let childComponent = cloneDeep(dynamicFormDictionary[componentProps.name]);
-                    console.log(childComponent);
-                    childComponent.baseIndex = index;
-                    return (
-                       <> <button type="button" onClick={() => foodRemove(index)}>
-                            Delete
-                        </button>
-                        {componentFactory.render(childComponent)}</>
-                    );
-                })}
-                <button
-                    type="button"
-                    onClick={() => {
-                        foodAppend({});
-                    }}
-                >
-                    Add CoOwner
-                </button> */}
             </>
         )
     }
@@ -130,15 +83,10 @@ const JsonRendererContainer = () => {
             />
         }
 
-        if (componentProps.rule) {
-            rulesDictionary[componentProps.rule.variable] = () => {
-                if (componentProps.rule) {
-                    return jsonLogic.apply(componentProps.rule.logic as RulesLogic, methods.getValues()) as boolean;
-                }
-                return false;
-            }
+        if (componentProps.rule && !componentProps.rule.ruleSet) {
 
-            return <>{stateDictionaryResult[componentProps.rule.variable] && number()}</>
+            console.log("going to render conditional render... ");
+            return <ConditionalRender componentAttr={componentProps} componentFactory={componentFactory}  />
         }
 
         return number();
