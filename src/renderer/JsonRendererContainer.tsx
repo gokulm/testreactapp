@@ -36,14 +36,13 @@ const JsonRendererContainer = () => {
             let childComponent = componentProps.children[0];
             dynamicFormDictionary[componentProps.baseProperty] = childComponent;
         }
-
         return null;
     }
 
     const renderUseFieldArray = (componentProps: IComponentAttribute) => {
         return (
             <>
-                <DynamicFieldArray name={componentProps.name} control={methods.control}
+                <DynamicFieldArray name={componentProps.name} 
                     componentFactory={componentFactory} dynamicFormDictionary={dynamicFormDictionary} />
             </>
         )
