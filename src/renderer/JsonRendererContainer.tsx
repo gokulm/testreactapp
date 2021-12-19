@@ -84,8 +84,7 @@ const JsonRendererContainer = () => {
         }
 
         console.log("going to render conditional render... ");
-        return <ConditionalRender componentAttr={componentProps} componentFactory={componentFactory} />
-
+        return <ConditionalRender componentAttr={componentProps}>{number()}</ConditionalRender>
     }
 
     return (
