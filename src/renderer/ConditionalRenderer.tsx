@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { useFormContext } from "react-hook-form";
+import { Controller, get, useFormContext } from "react-hook-form";
 import { IComponentAttribute } from "./IComponentAttribute";
 import jsonLogic, { RulesLogic } from "json-logic-js"
 import ComponentFactory from "./ComponentFactory";
+import { Form } from "react-bootstrap";
+import NumberFormat from "react-number-format";
 
 interface IProps {
     componentAttr: IComponentAttribute,
@@ -12,6 +14,23 @@ interface IProps {
 const ConditionalRender = (props: IProps) => {
     const methods = useFormContext();
     const [conditionalLogicResult, setConditionalLogicResult] = useState<boolean>(false);
+
+    const number = () => {
+        const error = get((methods as any).formState.errors, props.componentAttr.name);
+
+        return <Controller
+            control={(methods as any).control}
+            name="business.taxId"
+            render={({ field }) =>
+                <Form.Group className="mb-3">
+                    {props.componentAttr.label && <Form.Label>{props.componentAttr.label}</Form.Label>}
+                    <NumberFormat format={props.componentAttr.format} className="form-control" placeholder={props.componentAttr.format}
+                        {...(methods as any).register(props.componentAttr.name, { required: { value: props.componentAttr.required, message: "Please enter Business Tax ID" } })} {...field} />
+                    {error && <span className="alert">{error.message}</span>}
+                </Form.Group>}
+        />
+    }
+
 
 
     useEffect(() => {
@@ -32,7 +51,7 @@ const ConditionalRender = (props: IProps) => {
         return () => subscription.unsubscribe();
     }, [methods.watch]);
 
-    return <>{conditionalLogicResult && props.componentFactory.render(props.componentAttr)}</>
+    return <>{conditionalLogicResult && number()}</>
 
 }
 

@@ -83,13 +83,9 @@ const JsonRendererContainer = () => {
             />
         }
 
-        if (componentProps.rule && !componentProps.rule.ruleSet) {
+        console.log("going to render conditional render... ");
+        return <ConditionalRender componentAttr={componentProps} componentFactory={componentFactory} />
 
-            console.log("going to render conditional render... ");
-            return <ConditionalRender componentAttr={componentProps} componentFactory={componentFactory}  />
-        }
-
-        return number();
     }
 
     return (
