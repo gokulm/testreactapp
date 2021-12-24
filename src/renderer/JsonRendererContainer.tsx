@@ -24,25 +24,29 @@ const JsonRendererContainer = () => {
         renderNumber(componentProps));
     componentFactory.addComponent("dynamic", (componentProps: any) =>
         renderDynamicContainer(componentProps));
-    componentFactory.addComponent("fieldarray", (componentProps: any) =>
-        renderUseFieldArray(componentProps));
+    // componentFactory.addComponent("fieldarray", (componentProps: any) =>
+    //     renderUseFieldArray(componentProps));
     const dynamicFormDictionary: { [key: string]: IComponentAttribute } = {};
 
     const renderDynamicContainer = (componentProps: IComponentAttribute) => {
 
-        if (componentProps.baseProperty) {
-            let count = ((methods as any).getValues(componentProps.baseProperty) as []).length;
-            console.log("dynamic prop length: ", count);
-            let childComponent = componentProps.children[0];
-            dynamicFormDictionary[componentProps.baseProperty] = childComponent;
-        }
-        return null;
+        let count = ((methods as any).getValues(componentProps.name) as []).length;
+        console.log("dynamic prop length: ", count);
+        let childComponent = componentProps.children[0];
+        dynamicFormDictionary[componentProps.name] = childComponent;
+
+        return (
+            <>
+                <DynamicFieldArray name={componentProps.name}
+                    componentFactory={componentFactory} dynamicFormDictionary={dynamicFormDictionary} />
+            </>
+        )
     }
 
     const renderUseFieldArray = (componentProps: IComponentAttribute) => {
         return (
             <>
-                <DynamicFieldArray name={componentProps.name} 
+                <DynamicFieldArray name={componentProps.name}
                     componentFactory={componentFactory} dynamicFormDictionary={dynamicFormDictionary} />
             </>
         )

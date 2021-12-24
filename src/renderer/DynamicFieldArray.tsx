@@ -1,5 +1,5 @@
 import { cloneDeep } from "lodash";
-import { useFieldArray, useFormContext } from "react-hook-form";
+import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
 import ComponentFactory from "./ComponentFactory";
 import { IComponentAttribute } from "./IComponentAttribute";
 
@@ -11,6 +11,20 @@ interface IProps {
 
 const DynamicFieldArray = (props: IProps) => {
     const methods = useFormContext();
+    // const emptyObject = () => {
+    //     let test = methods.getValues(props.name)[0] ?? {}
+    //     console.log("test coowners", test);
+    //     return test;
+    // };
+
+    // const Input = ({ name, control, register, index }: any) => {
+    //     const test = useFormContext();
+    //     const value = useWatch({
+    //       control,
+    //       name
+    //     });
+    //     return <input {...register(`test.${index}.age`)} defaultValue={value} />;
+    //   };
 
     const {
         fields,
@@ -38,7 +52,7 @@ const DynamicFieldArray = (props: IProps) => {
                     append({});
                 }}
             >
-                Add CoOwner
+                Add
             </button>
         </>
     )
