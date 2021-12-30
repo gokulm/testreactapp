@@ -17,6 +17,14 @@ export interface IComponentAttribute {
     format?: string,
     rule?: IRule,
     baseIndex?: number
+    attributes?: any
+}
+
+export interface ITextBoxAttribute
+{
+    label: string;
+    placeHolder: string;
+    required?: boolean;
 }
 
 export interface IRadioButton

@@ -43,26 +43,47 @@
                 "children": []
             },
             {
-                "type": "text",
-                "name": "owners.0.address",
-                "required": true,
-                "label": "Street",
-                "placeHolder": "test placeholder 2",
-                "children": []
-            },
-            {
-                "type": "dropdown",
-                "name": "owners.0.state",
-                "required": true,
-                "label": "State",
-                "placeHolder": "Select State",
-                "dropdownValues": [
-                    "AL",
-                    "AK",
-                    "MD",
-                    "VA"
-                ],
-                "children": []
+                "type": "flex",
+                "name": "layout",
+                "class": "header",
+                "style": {
+                    "flex-flow": "row wrap",
+                    "margin": "0",
+                    "border": "0",
+                    "padding": "0"
+                },
+                "defaultValue": "test",
+                "children": [{
+                        "type": "text",
+                        "name": "owners.0.address",
+                        "required": true,
+                        "label": "Street",
+                        "placeHolder": "test placeholder 2",
+                        "children": []
+                    },
+                    {
+                        "type": "text",
+                        "name": "owners.0.county",
+                        "required": true,
+                        "label": "County",
+                        "placeHolder": "test placeholder 2",
+                        "children": []
+                    },
+                    {
+                        "type": "dropdown",
+                        "name": "owners.0.state",
+                        "required": true,
+                        "label": "State",
+                        "placeHolder": "Select State",
+                        "dropdownValues": [
+                            "AL",
+                            "AK",
+                            "MD",
+                            "VA"
+                        ],
+                        "children": []
+                    }
+                ]
             },
             {
                 "type": "number",

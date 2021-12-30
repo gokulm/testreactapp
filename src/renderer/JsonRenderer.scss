@@ -7,14 +7,13 @@
     margin: auto;
     background-color: #f3f1f1;
     border: #000 solid 1px;
-    width: 50%;
+    margin: 50px;
     padding: 20px;
 }
 
 .renderer-flex-item {
     flex-grow: 1;
-
-    .alert{
+    .alert {
         color: red;
     }
 }

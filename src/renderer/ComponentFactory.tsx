@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { Form } from "react-bootstrap";
 import { get } from "react-hook-form";
-import { IComponentAttribute } from "./IComponentAttribute";
+import { IComponentAttribute, ITextBoxAttribute } from "./IComponentAttribute";
 
 class ComponentFactory {
     private _componentMapper: { [key: string]: Function } = {}
@@ -32,6 +32,11 @@ class ComponentFactory {
     }
 
     private renderTextBox(componentProps: IComponentAttribute) {
+        // if(componentProps.attributes instanceof ITextBoxAttribute)
+        // {
+        //     let temp = componentProps.attributes as ITextBoxAttribute;
+        // }
+
         console.log("rendering type: ", componentProps.type);
         const error = get(this._methods.formState.errors, componentProps.name);
         return <Form.Group className="mb-3">
