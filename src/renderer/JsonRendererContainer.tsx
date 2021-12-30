@@ -17,15 +17,21 @@ const JsonRendererContainer = () => {
         console.log("errors:", methods.formState.errors);
         console.log("submitted form: ", testData);
     }
-    const componentFactory = new ComponentFactory(methods);
+
+    const rendererOnChange = (e: any) => {
+        if(e.target.name === "owners.0.firstName")
+        {
+            console.log("handling on change differently. value: ", e.target.value);
+        }
+    } 
+
+    const componentFactory = new ComponentFactory(methods, rendererOnChange);
     componentFactory.addComponent("radiobuttonwithlist", (componentProps: any) =>
         renderRadioButtonWithList(componentProps));
     componentFactory.addComponent("number", (componentProps: any) =>
         renderNumber(componentProps));
     componentFactory.addComponent("dynamic", (componentProps: any) =>
         renderDynamicContainer(componentProps));
-    // componentFactory.addComponent("fieldarray", (componentProps: any) =>
-    //     renderUseFieldArray(componentProps));
     const dynamicFormDictionary: { [key: string]: IComponentAttribute } = {};
 
     const renderDynamicContainer = (componentProps: IComponentAttribute) => {
@@ -37,16 +43,7 @@ const JsonRendererContainer = () => {
 
         return (
             <>
-                <DynamicFieldArray name={componentProps.name}
-                    componentFactory={componentFactory} dynamicFormDictionary={dynamicFormDictionary} />
-            </>
-        )
-    }
-
-    const renderUseFieldArray = (componentProps: IComponentAttribute) => {
-        return (
-            <>
-                <DynamicFieldArray name={componentProps.name}
+                <DynamicFieldArray name={componentProps.name} label={componentProps.label || ""}
                     componentFactory={componentFactory} dynamicFormDictionary={dynamicFormDictionary} />
             </>
         )

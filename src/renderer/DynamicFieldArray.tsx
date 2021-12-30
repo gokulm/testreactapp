@@ -5,6 +5,7 @@ import { IComponentAttribute } from "./IComponentAttribute";
 
 interface IProps {
     name: string,
+    label: string,
     componentFactory: ComponentFactory,
     dynamicFormDictionary: { [key: string]: IComponentAttribute }
 }
@@ -52,7 +53,7 @@ const DynamicFieldArray = (props: IProps) => {
                     append({});
                 }}
             >
-                Add
+                Add {props.label}
             </button>
         </>
     )

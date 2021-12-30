@@ -6,7 +6,8 @@ import { IComponentAttribute, ITextBoxAttribute } from "./IComponentAttribute";
 class ComponentFactory {
     private _componentMapper: { [key: string]: Function } = {}
 
-    constructor(private _methods: any) {
+    constructor(private _methods: any,
+        private onChange?: Function) {
         this._componentMapper = {
             "flex": (componentProps: any) => this.renderFlexContainer(componentProps),
             "text": (componentProps: any) => this.renderTextBox(componentProps),
@@ -43,7 +44,8 @@ class ComponentFactory {
             {componentProps.label && <Form.Label>{componentProps.label}</Form.Label>}
             <Form.Control
                 {...this._methods.register(componentProps.name, { required: { value: componentProps.required, message: componentProps.placeHolder } })}
-                placeholder={componentProps.placeHolder} />
+                placeholder={componentProps.placeHolder}
+                onChange={componentProps.enableOnChange && this.onChange} />
             {error && <span className="alert">{error.message}</span>}
         </Form.Group>
     }

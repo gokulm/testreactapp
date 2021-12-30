@@ -17,7 +17,8 @@ export interface IComponentAttribute {
     format?: string,
     rule?: IRule,
     baseIndex?: number
-    attributes?: any
+    attributes?: any,
+    enableOnChange?: boolean
 }
 
 export interface ITextBoxAttribute
