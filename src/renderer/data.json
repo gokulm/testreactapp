@@ -50,7 +50,7 @@
     "coOwners": [{
         "lastName": "Smith",
         "firstName": "Will",
-        "ownershipPercentage": 100
+        "ownershipPercentage": 10
     }],
     "consents": [{
         "type": "TERMS_AND_CONDITIONS",

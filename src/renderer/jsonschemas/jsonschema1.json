@@ -127,6 +127,11 @@
                 }
             },
             {
+                "type": "ownershippercentage",
+                "name": "ownershippercentage",
+                "children": []
+            },
+            {
                 "type": "dynamic",
                 "name": "coOwners",
                 "label": "Co-Owner",
@@ -148,6 +153,17 @@
                             "label": "Last Name",
                             "placeHolder": "Please enter last name",
                             "children": []
+                        },
+                        {
+                            "name": "coOwners.[index].ownershipPercentage",
+                            "type": "text",
+                            "required": true,
+                            "label": "Ownership %",
+                            "placeHolder": "Please enter ownership %",
+                            "children": [],
+                            "validation": {
+                                "max": { "value": 100, "message": "Cannot exceed 100" }
+                            }
                         }
                     ]
                 }]

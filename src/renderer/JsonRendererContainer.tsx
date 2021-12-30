@@ -14,19 +14,35 @@ import { useEffect } from "react";
 // todo: dynamic controls, flex multi col layout, aggregate, validators
 
 const JsonRendererContainer = () => {
-    const methods = useForm({ defaultValues: apiData, mode: "onTouched" })
+    const methods = useForm({ defaultValues: apiData, mode: "onTouched" });
     const onSubmit = (testData: any) => {
+        console.log("errors:", methods.formState.errors);
+
         if (!isValidEmail(watchEmail)) {
             console.log("triggered email validation");
             methods.setError("owners.0.email", { type: "manual", message: "invalid email" });
-            console.log("errors:", methods.formState.errors);
             return;
         }
+
+        let coOwners = methods.getValues("coOwners");
+        let ownershipPercentage = 0;
+        coOwners.map(m => ownershipPercentage += +m.ownershipPercentage);
+        console.log("ownershipPercentage: ", ownershipPercentage);
+        if (ownershipPercentage > 100) {
+            console.log("triggered ownership validation");
+            methods.setError("coOwners", { type: "manual", message: "ownership cannot exceed 100%" });
+            return;
+        }
+        else {
+            methods.clearErrors("coOwners");
+        }
+
         console.log("errors:", methods.formState.errors);
         console.log("submitted form: ", testData);
     }
 
     const watchEmail = methods.watch("owners.0.email");
+    // const watchCoOwners = methods.watch("coOwners");
 
 
     // useEffect(() => {
@@ -66,6 +82,8 @@ const JsonRendererContainer = () => {
         renderNumber(componentProps));
     componentFactory.addComponent("dynamic", (componentProps: any) =>
         renderDynamicContainer(componentProps));
+    componentFactory.addComponent("ownershippercentage", (componentProps: any) =>
+        renderOwnershipPercentage(componentProps));
     const dynamicFormDictionary: { [key: string]: IComponentAttribute } = {};
 
     const renderDynamicContainer = (componentProps: IComponentAttribute) => {
@@ -82,6 +100,12 @@ const JsonRendererContainer = () => {
             </>
         )
     }
+
+    const renderOwnershipPercentage = (componentProps: IComponentAttribute) => {
+        let error = get(methods.formState.errors, "coOwners");
+        return <>{error && <span className="alert">{error.message}</span>}</>
+    }
+
 
     const renderRadioButtonWithList = (componentProps: IComponentAttribute) => {
         return <Form.Group className="mb-3">
