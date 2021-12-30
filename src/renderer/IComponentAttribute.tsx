@@ -18,7 +18,8 @@ export interface IComponentAttribute {
     rule?: IRule,
     baseIndex?: number
     attributes?: any,
-    enableOnChange?: boolean
+    enableOnChange?: boolean,
+    validation?: any
 }
 
 export interface ITextBoxAttribute

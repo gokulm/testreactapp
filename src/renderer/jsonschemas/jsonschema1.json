@@ -32,8 +32,11 @@
                 "required": true,
                 "label": "First Name",
                 "placeHolder": "Please enter first name",
-                "enableOnChange": true,
-                "children": []
+                "children": [],
+                "validation": {
+                    "required": { "value": true, "message": "This is required" },
+                    "maxLength": { "value": 5, "message": "This cannot exceed 5 characters" }
+                }
             },
             {
                 "name": "owners.0.lastName",
@@ -41,7 +44,25 @@
                 "required": true,
                 "label": "Last Name",
                 "placeHolder": "Please enter last name",
-                "children": []
+                "children": [],
+                "validation": {
+                    "required": { "value": true, "message": "This is required" }
+                }
+            },
+            {
+                "name": "owners.0.email",
+                "type": "text",
+                "required": true,
+                "label": "Email",
+                "placeHolder": "Please enter email",
+                "children": [],
+                "validation": {
+                    "required": { "value": true, "message": "This is required" },
+                    "pattern": {
+                        "value": "\/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$\/i",
+                        "message": "Invalid email address"
+                    }
+                }
             },
             {
                 "type": "flex",

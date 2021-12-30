@@ -22,7 +22,7 @@ const ConditionalRender = (props: IProps) => {
                 let result = jsonLogic.apply(props.componentAttr.rule.logic as RulesLogic, methods.getValues()) as boolean;
                 console.log("componentAttr.rule.variable result: ", result);
                 setConditionalLogicResult(result);
-                props.componentAttr.rule.ruleSet = true;
+                // props.componentAttr.rule.ruleSet = true;
             }
         });
 

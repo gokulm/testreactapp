@@ -8,22 +8,56 @@ import { Form } from "react-bootstrap";
 import NumberFormat from "react-number-format";
 import DynamicFieldArray from "./DynamicFieldArray";
 import ConditionalRender from "./ConditionalRenderer";
+import { useEffect } from "react";
+
 
 // todo: dynamic controls, flex multi col layout, aggregate, validators
 
 const JsonRendererContainer = () => {
     const methods = useForm({ defaultValues: apiData, mode: "onTouched" })
     const onSubmit = (testData: any) => {
+        if (!isValidEmail(watchEmail)) {
+            console.log("triggered email validation");
+            methods.setError("owners.0.email", { type: "manual", message: "invalid email" });
+            console.log("errors:", methods.formState.errors);
+            return;
+        }
         console.log("errors:", methods.formState.errors);
         console.log("submitted form: ", testData);
     }
 
+    const watchEmail = methods.watch("owners.0.email");
+
+
+    // useEffect(() => {
+    //     console.log("triggered email change");
+    //     if (!isValidEmail(watchEmail)) {
+    //         console.log("triggered email validation");
+    //         methods.setError("owners.0.email", { type: "manual", message: "invalid email" });
+    //         console.log("errors:", methods.formState.errors);
+    //     }
+    //     else {
+    //         // methods.clearErrors("owners.0.email");
+    //     }
+    // }, [watchEmail]);
+
     const rendererOnChange = (e: any) => {
-        if(e.target.name === "owners.0.firstName")
-        {
+        if (e.target.name === "owners.0.email") {
             console.log("handling on change differently. value: ", e.target.value);
+            if (!isValidEmail(e.target.value)) {
+                methods.setError("owners.0.email", { type: "manual", message: "invalid email" });
+            }
+            else {
+                methods.clearErrors("owners.0.email");
+            }
         }
-    } 
+    }
+
+    const isValidEmail = (email: any) =>
+        // eslint-disable-next-line no-useless-escape
+        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+            email
+        );
 
     const componentFactory = new ComponentFactory(methods, rendererOnChange);
     componentFactory.addComponent("radiobuttonwithlist", (componentProps: any) =>
@@ -37,7 +71,7 @@ const JsonRendererContainer = () => {
     const renderDynamicContainer = (componentProps: IComponentAttribute) => {
 
         let count = ((methods as any).getValues(componentProps.name) as []).length;
-        console.log("dynamic prop length: ", count);
+        // console.log("dynamic prop length: ", count);
         let childComponent = componentProps.children[0];
         dynamicFormDictionary[componentProps.name] = childComponent;
 
@@ -83,7 +117,7 @@ const JsonRendererContainer = () => {
             />
         }
 
-        console.log("going to render conditional render... ");
+        // console.log("going to render conditional render... ");
         return <ConditionalRender componentAttr={componentProps}>{number()}</ConditionalRender>
     }
 

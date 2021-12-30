@@ -19,7 +19,7 @@ class ComponentFactory {
     }
 
     private renderFlexContainer(componentProps: IComponentAttribute) {
-        console.log("rendering type: ", componentProps.type);
+        // console.log("rendering type: ", componentProps.type);
         return <div className="renderer-flex-container" style={componentProps.style}>
             {componentProps.children.map((c, i) => {
                 // console.log(`rendering flex. index: ${i}, type: ${c.type} baseIndex: ${componentProps.baseIndex}`);
@@ -38,20 +38,21 @@ class ComponentFactory {
         //     let temp = componentProps.attributes as ITextBoxAttribute;
         // }
 
-        console.log("rendering type: ", componentProps.type);
+        // console.log("rendering type: ", componentProps.type);
         const error = get(this._methods.formState.errors, componentProps.name);
         return <Form.Group className="mb-3">
             {componentProps.label && <Form.Label>{componentProps.label}</Form.Label>}
             <Form.Control
-                {...this._methods.register(componentProps.name, { required: { value: componentProps.required, message: componentProps.placeHolder } })}
+                {...this._methods.register(componentProps.name, componentProps.validation)}
                 placeholder={componentProps.placeHolder}
-                onChange={componentProps.enableOnChange && this.onChange} />
+                // onChange={componentProps.enableOnChange && this.onChange} 
+                />
             {error && <span className="alert">{error.message}</span>}
         </Form.Group>
     }
 
     private renderDropDown(componentProps: IComponentAttribute) {
-        console.log("rendering type: ", componentProps.type);
+        // console.log("rendering type: ", componentProps.type);
         return <Form.Group className="mb-3">
             {componentProps.label && <Form.Label>{componentProps.label}</Form.Label>}
             <Form.Select   {...this._methods.register(componentProps.name, { required: componentProps.required })} >
@@ -61,7 +62,7 @@ class ComponentFactory {
     }
 
     private renderRadioButtons(componentProps: IComponentAttribute) {
-        console.log("rendering type: ", componentProps.type);
+        // console.log("rendering type: ", componentProps.type);
         return <Form.Group className="mb-3">
             {componentProps.label && <Form.Label>{componentProps.label}</Form.Label>} <br />
             {componentProps.radioButtons?.map((d, i) => {
