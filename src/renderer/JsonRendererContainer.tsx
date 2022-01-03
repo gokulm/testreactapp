@@ -84,26 +84,15 @@ const JsonRendererContainer = () => {
         renderDynamicContainer(componentProps));
     componentFactory.addComponent("ownershippercentage", (componentProps: any) =>
         renderOwnershipPercentage(componentProps));
-    const dynamicFormDictionary: { [key: string]: IComponentAttribute } = {};
 
     const renderDynamicContainer = (componentProps: IComponentAttribute) => {
-        // console.log("dynamic prop length: ", count);
-        // let childComponent = componentProps.children[0];
-        // dynamicFormDictionary[componentProps.name] = childComponent;
-
-        return (
-            <>
-                <DynamicFieldArray componentAttribute={componentProps}
-                    componentFactory={componentFactory} />
-            </>
-        )
+        return <DynamicFieldArray component={componentProps} componentFactory={componentFactory} />
     }
 
     const renderOwnershipPercentage = (componentProps: IComponentAttribute) => {
         let error = get(methods.formState.errors, "coOwners");
         return <>{error && <span className="alert">{error.message}</span>}</>
     }
-
 
     const renderRadioButtonWithList = (componentProps: IComponentAttribute) => {
         let radioButtonListControl = componentProps as IRadioButtonListControl;
@@ -123,7 +112,6 @@ const JsonRendererContainer = () => {
     }
 
     const renderNumber = (componentProps: IComponentAttribute) => {
-
         let number = () => {
             const error = get((methods as any).formState.errors, componentProps.name);
 
@@ -134,12 +122,12 @@ const JsonRendererContainer = () => {
                     <Form.Group className="mb-3">
                         {componentProps.label && <Form.Label>{componentProps.label}</Form.Label>}
                         <NumberFormat format={componentProps.format} className="form-control" placeholder={componentProps.format}
-                            {...(methods as any).register(componentProps.name, { required: { value: componentProps.required, message: "Please enter Business Tax ID" } })} {...field} />
+                            {...(methods as any).register(componentProps.name, componentProps.validation)} {...field} />
                         {error && <span className="alert">{error.message}</span>}
                     </Form.Group>}
             />
         }
-        
+
         return <ConditionalRender componentAttr={componentProps}>{number()}</ConditionalRender>
     }
 

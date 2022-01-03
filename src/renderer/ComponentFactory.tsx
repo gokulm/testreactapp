@@ -24,8 +24,8 @@ class ComponentFactory {
         return <div className="renderer-flex-container" style={flex.style}>
             {flex.children.map((c, i) => {
                 // console.log(`rendering flex. index: ${i}, type: ${c.type} baseIndex: ${componentProps.baseIndex}`);
-                if (flex.baseIndex !== undefined && c.dynamicName !== undefined) {
-                    c.name = c.dynamicName.replace("[index]", flex.baseIndex.toString());
+                if (flex.dynamicIndex !== undefined && c.dynamicName !== undefined) {
+                    c.name = c.dynamicName.replace("[index]", flex.dynamicIndex.toString());
                     console.log("replaced name ", c.name);
                 }
                 return <div className="renderer-flex-item" key={i}> {this._componentMapper[c.type](c)} </div>

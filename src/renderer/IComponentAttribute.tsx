@@ -1,20 +1,14 @@
-import { RulesLogic } from "json-logic-js";
 
 export interface IComponentAttribute {
     type: string;
     name: string;
     children: IComponentAttribute[];
     required?: boolean;
-    class?: string;
-    id?: string;
-    placeHolder?: string;
     style?: any;
-    dropdownValues?: any[];
     label?: string;
     format?: string;
     rule?: IRule;
     validation?: any;
-    baseIndex?: number;
     dynamicName?: string;
 }
 
@@ -28,8 +22,7 @@ export interface ITextBoxControl extends IComponentAttribute
 
 export interface IFlexControl extends IComponentAttribute
 {
-    style?: any;
-    // baseIndex?: number;
+    dynamicIndex?: number;
 }
 
 export interface IRadioButtonControl extends IComponentAttribute
@@ -44,7 +37,8 @@ export interface IRadioButtonListControl extends IRadioButtonControl
 
 export interface IDropdownControl extends IComponentAttribute
 {
-    labelValues: ILabelValuePair[]
+    labelValues: ILabelValuePair[],
+    placeHolder: string;
 }
 
 export interface ILabelValuePair 

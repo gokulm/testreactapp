@@ -115,6 +115,9 @@
                 "label": "Business Tax ID (EIN)",
                 "placeHolder": "##-#######",
                 "children": [],
+                "validation": {
+                    "required": { "value": true, "message": "Please enter Business Tax ID" }
+                },
                 "rule": {
                     "variable": "business._extension.soleProprietorship",
                     "logic": {

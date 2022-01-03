@@ -1,43 +1,28 @@
 import { useFieldArray, useFormContext } from "react-hook-form";
 import ComponentFactory from "./ComponentFactory";
-import { IComponentAttribute } from "./IComponentAttribute";
+import { IComponentAttribute, IFlexControl } from "./IComponentAttribute";
 
 interface IProps {
-    componentAttribute: IComponentAttribute,
+    component: IComponentAttribute,
     componentFactory: ComponentFactory
 }
 
 const DynamicFieldArray = (props: IProps) => {
     const methods = useFormContext();
-    const childComponent = props.componentAttribute.children[0];
-    // const emptyObject = () => {
-    //     let test = methods.getValues(props.name)[0] ?? {}
-    //     console.log("test coowners", test);
-    //     return test;
-    // };
-
-    // const Input = ({ name, control, register, index }: any) => {
-    //     const test = useFormContext();
-    //     const value = useWatch({
-    //       control,
-    //       name
-    //     });
-    //     return <input {...register(`test.${index}.age`)} defaultValue={value} />;
-    //   };
+    const childComponent = props.component.children[0] as IFlexControl;
 
     const {
         fields,
         append,
         remove
-    } = useFieldArray({ control: methods.control, name: props.componentAttribute.name });
+    } = useFieldArray({ control: methods.control, name: props.component.name });
 
     return (
         <>
             {fields.map((item, index) => {
                 console.log("fieldsarray index: ", index);
-                // let childComponent = cloneDeep(props.dynamicFormDictionary[props.name]);
                 console.log(childComponent);
-                childComponent.baseIndex = index;
+                childComponent.dynamicIndex = index;
                 return (
                     <> <button type="button" onClick={() => remove(index)}>
                         Delete
@@ -51,7 +36,7 @@ const DynamicFieldArray = (props: IProps) => {
                     append({});
                 }}
             >
-                Add {props.componentAttribute.label}
+                Add {props.component.label}
             </button>
         </>
     )
