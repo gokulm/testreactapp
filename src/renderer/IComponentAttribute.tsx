@@ -9,30 +9,47 @@ export interface IComponentAttribute {
     id?: string;
     placeHolder?: string;
     style?: any;
-    defaultValue?: string;
     dropdownValues?: any[];
-    label?: string,
-    radioButtons?: IRadioButton[],
-    radioButtonChecklist?: string[],
-    format?: string,
-    rule?: IRule,
-    baseIndex?: number
-    attributes?: any,
-    enableOnChange?: boolean,
-    validation?: any
+    label?: string;
+    format?: string;
+    rule?: IRule;
+    validation?: any;
+    baseIndex?: number;
 }
 
-export interface ITextBoxAttribute
+export interface ITextBoxControl extends IComponentAttribute
 {
     label: string;
     placeHolder: string;
     required?: boolean;
+    validation?: any;
 }
 
-export interface IRadioButton
+export interface IFlexControl extends IComponentAttribute
 {
-    value: string,
-    label: string
+    style?: any;
+    // baseIndex?: number;
+}
+
+export interface IRadioButtonControl extends IComponentAttribute
+{
+    labelValues: ILabelValuePair[]
+}
+
+export interface IRadioButtonListControl extends IRadioButtonControl
+{
+    checklist: string[],
+}
+
+export interface IDropdownControl extends IComponentAttribute
+{
+    labelValues: ILabelValuePair[]
+}
+
+export interface ILabelValuePair 
+{
+    label: string,
+    value: string
 }
 
 export interface IRule

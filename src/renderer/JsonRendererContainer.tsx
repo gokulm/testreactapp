@@ -1,6 +1,6 @@
 import { Controller, FormProvider, get, useFieldArray, useForm } from "react-hook-form";
 import JsonRenderer from "./JsonRenderer"
-import { IComponentAttribute } from "./IComponentAttribute";
+import { IComponentAttribute, IRadioButtonListControl } from "./IComponentAttribute";
 import jsonschema1 from "./jsonschemas/jsonschema1.json";
 import apiData from './data.json'
 import ComponentFactory from "./ComponentFactory";
@@ -108,17 +108,18 @@ const JsonRendererContainer = () => {
 
 
     const renderRadioButtonWithList = (componentProps: IComponentAttribute) => {
+        let radioButtonListControl = componentProps as IRadioButtonListControl;
         return <Form.Group className="mb-3">
-            {componentProps.label && <Form.Label>{componentProps.label}</Form.Label>} <br />
+            {radioButtonListControl.label && <Form.Label>{radioButtonListControl.label}</Form.Label>} <br />
             <ul>
-                {componentProps.radioButtonChecklist?.map((c, i) => <li key={i}>{c}</li>)}
+                {radioButtonListControl.checklist.map((c, i) => <li key={i}>{c}</li>)}
             </ul>
-            {componentProps.radioButtons?.map(d => {
+            {radioButtonListControl.labelValues.map(d => {
                 return (
-                    <><input type="radio" value={d.value} id={`${componentProps.name}_${d.value}`}
-                        {...(methods as any).register(componentProps.name, { required: false })}
-                        defaultChecked={(methods as any).getValues(componentProps.name) === d.value}
-                    /> <label htmlFor={`${componentProps.name}_${d.value}`}> {d.label} </label></>
+                    <><input type="radio" value={d.value} id={`${radioButtonListControl.name}_${d.value}`}
+                        {...(methods as any).register(radioButtonListControl.name, { required: false })}
+                        defaultChecked={(methods as any).getValues(radioButtonListControl.name) === d.value}
+                    /> <label htmlFor={`${radioButtonListControl.name}_${d.value}`}> {d.label} </label></>
                 )
             })}</Form.Group>
     }
@@ -140,8 +141,7 @@ const JsonRendererContainer = () => {
                     </Form.Group>}
             />
         }
-
-        // console.log("going to render conditional render... ");
+        
         return <ConditionalRender componentAttr={componentProps}>{number()}</ConditionalRender>
     }
 

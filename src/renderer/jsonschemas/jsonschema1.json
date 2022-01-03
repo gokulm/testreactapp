@@ -11,12 +11,12 @@
                 "placeHolder": "Please enter firstname",
                 "children": [],
                 "required": true,
-                "radioButtonChecklist": [
+                "checklist": [
                     "Pawn Broker",
                     "Currency Exchanger",
                     "Check Casher"
                 ],
-                "radioButtons": [{
+                "labelValues": [{
                         "value": "true",
                         "label": "Yes"
                     },
@@ -97,11 +97,11 @@
                         "required": true,
                         "label": "State",
                         "placeHolder": "Select State",
-                        "dropdownValues": [
-                            "AL",
-                            "AK",
-                            "MD",
-                            "VA"
+                        "labelValues": [
+                            { "label": "AL", "value": "AL" },
+                            { "label": "AK", "value": "AK" },
+                            { "label": "MD", "value": "MD" },
+                            { "label": "VA", "value": "VA" }
                         ],
                         "children": []
                     }
