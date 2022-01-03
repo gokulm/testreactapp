@@ -1,17 +1,18 @@
-import { cloneDeep } from "lodash";
-import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
+import { useFieldArray, useFormContext } from "react-hook-form";
 import ComponentFactory from "./ComponentFactory";
 import { IComponentAttribute } from "./IComponentAttribute";
 
 interface IProps {
     name: string,
     label: string,
+    componentAttribute: IComponentAttribute,
     componentFactory: ComponentFactory,
     dynamicFormDictionary: { [key: string]: IComponentAttribute }
 }
 
 const DynamicFieldArray = (props: IProps) => {
     const methods = useFormContext();
+    const childComponent = props.componentAttribute.children[0];
     // const emptyObject = () => {
     //     let test = methods.getValues(props.name)[0] ?? {}
     //     console.log("test coowners", test);
@@ -37,7 +38,7 @@ const DynamicFieldArray = (props: IProps) => {
         <>
             {fields.map((item, index) => {
                 console.log("fieldsarray index: ", index);
-                let childComponent = cloneDeep(props.dynamicFormDictionary[props.name]);
+                // let childComponent = cloneDeep(props.dynamicFormDictionary[props.name]);
                 console.log(childComponent);
                 childComponent.baseIndex = index;
                 return (

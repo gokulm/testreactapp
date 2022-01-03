@@ -15,6 +15,7 @@ export interface IComponentAttribute {
     rule?: IRule;
     validation?: any;
     baseIndex?: number;
+    dynamicName?: string;
 }
 
 export interface ITextBoxControl extends IComponentAttribute

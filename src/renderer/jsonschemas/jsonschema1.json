@@ -139,7 +139,8 @@
                     "type": "flex",
                     "name": "layout2",
                     "children": [{
-                            "name": "coOwners.[index].firstName",
+                            "name": "",
+                            "dynamicName": "coOwners.[index].firstName",
                             "type": "text",
                             "required": true,
                             "label": "First Name",
@@ -147,7 +148,8 @@
                             "children": []
                         },
                         {
-                            "name": "coOwners.[index].lastName",
+                            "name": "",
+                            "dynamicName": "coOwners.[index].lastName",
                             "type": "text",
                             "required": true,
                             "label": "Last Name",
@@ -155,7 +157,8 @@
                             "children": []
                         },
                         {
-                            "name": "coOwners.[index].ownershipPercentage",
+                            "name": "",
+                            "dynamicName": "coOwners.[index].ownershipPercentage",
                             "type": "text",
                             "required": true,
                             "label": "Ownership %",
