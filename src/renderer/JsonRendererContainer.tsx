@@ -88,13 +88,13 @@ const JsonRendererContainer = () => {
 
     const renderDynamicContainer = (componentProps: IComponentAttribute) => {
         // console.log("dynamic prop length: ", count);
-        let childComponent = componentProps.children[0];
-        dynamicFormDictionary[componentProps.name] = childComponent;
+        // let childComponent = componentProps.children[0];
+        // dynamicFormDictionary[componentProps.name] = childComponent;
 
         return (
             <>
-                <DynamicFieldArray name={componentProps.name} label={componentProps.label || ""} componentAttribute={componentProps}
-                    componentFactory={componentFactory} dynamicFormDictionary={dynamicFormDictionary} />
+                <DynamicFieldArray componentAttribute={componentProps}
+                    componentFactory={componentFactory} />
             </>
         )
     }

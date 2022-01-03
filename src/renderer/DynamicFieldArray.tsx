@@ -3,11 +3,8 @@ import ComponentFactory from "./ComponentFactory";
 import { IComponentAttribute } from "./IComponentAttribute";
 
 interface IProps {
-    name: string,
-    label: string,
     componentAttribute: IComponentAttribute,
-    componentFactory: ComponentFactory,
-    dynamicFormDictionary: { [key: string]: IComponentAttribute }
+    componentFactory: ComponentFactory
 }
 
 const DynamicFieldArray = (props: IProps) => {
@@ -32,7 +29,7 @@ const DynamicFieldArray = (props: IProps) => {
         fields,
         append,
         remove
-    } = useFieldArray({ control: methods.control, name: props.name });
+    } = useFieldArray({ control: methods.control, name: props.componentAttribute.name });
 
     return (
         <>
@@ -54,7 +51,7 @@ const DynamicFieldArray = (props: IProps) => {
                     append({});
                 }}
             >
-                Add {props.label}
+                Add {props.componentAttribute.label}
             </button>
         </>
     )
