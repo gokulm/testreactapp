@@ -7,8 +7,7 @@ import DynamicFieldArray from "./DynamicFieldArray";
 import { IComponentAttribute, IDropdownControl, IFlexControl, INumericControl, IRadioButtonControl, ITextBoxControl } from "./IComponentAttribute";
 
 class ComponentFactory {
-    private _componentMapper: { [key: string]: Function } = {}
-    private _regexValidationPatterns: { [key: string]: any } = {}
+    private _componentMapper: { [key: string]: Function } = {};
 
     constructor(private _methods: any) {
         this._componentMapper = {
@@ -19,10 +18,6 @@ class ComponentFactory {
             "submit": (componentProps: any) => this.renderSubmit(componentProps),
             "dynamic": (componentProps: any) => this.renderDynamicContainer(componentProps),
             "numeric": (componentProps: any) => this.renderNumeric(componentProps)
-        }
-
-        this._regexValidationPatterns = {
-            "email": /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
         }
     }
 
@@ -45,11 +40,9 @@ class ComponentFactory {
         let textBox = componentProps as ITextBoxControl;
         // console.log("rendering type: ", componentProps.type);
         const error = get(this._methods.formState.errors, textBox.name);
-        if(textBox.validation && textBox.validation['pattern'])
-        {
+        if (textBox.validation && textBox.validation['pattern']) {
             let patternObject = textBox.validation['pattern'];
             console.log("pattern validation:", patternObject);
-            // patternObject.value = this._regexValidationPatterns[patternObject.regexKey]; 
             patternObject.value = new RegExp(patternObject.regex);
             console.log("validation:", textBox.validation);
         }
@@ -112,18 +105,6 @@ class ComponentFactory {
 
     private renderSubmit(componentProps: IComponentAttribute) {
         return <input type="submit" />
-    }
-
-    private isValidEmail(email: any) {
-        console.log("email validation: ", email);
-        if(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-            email
-        ))
-        {
-            return true;
-        }
-
-        return "Invalid email"
     }
 
     public addComponent(key: string, rendererFunction: Function): void {
