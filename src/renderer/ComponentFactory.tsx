@@ -8,7 +8,7 @@ import { IComponentAttribute, IDropdownControl, IFlexControl, INumericControl, I
 
 class ComponentFactory {
     private _componentMapper: { [key: string]: Function } = {}
-    private _customValidators: { [key: string]: Function } = {}
+    private _regexValidationPatterns: { [key: string]: any } = {}
 
     constructor(private _methods: any) {
         this._componentMapper = {
@@ -21,8 +21,8 @@ class ComponentFactory {
             "numeric": (componentProps: any) => this.renderNumeric(componentProps)
         }
 
-        this._customValidators = {
-            "email": (value: any) => this.isValidEmail(value)
+        this._regexValidationPatterns = {
+            "email": /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
         }
     }
 
@@ -45,23 +45,14 @@ class ComponentFactory {
         let textBox = componentProps as ITextBoxControl;
         // console.log("rendering type: ", componentProps.type);
         const error = get(this._methods.formState.errors, textBox.name);
-        if(textBox.validation && textBox.validation['customValidate'])
+        if(textBox.validation && textBox.validation['pattern'])
         {
-            let customValidatorKey = textBox.validation['customValidate'];
-            console.log("custom validation:", customValidatorKey);
-            let customValidator = this._customValidators[customValidatorKey];
-            console.log("_customValidator:", customValidator);
-            textBox.validation['validate'] = customValidator;
-            console.log("custom validation: ", textBox.validation);
+            let patternObject = textBox.validation['pattern'];
+            console.log("pattern validation:", patternObject);
+            // patternObject.value = this._regexValidationPatterns[patternObject.regexKey]; 
+            patternObject.value = new RegExp(patternObject.regex);
+            console.log("validation:", textBox.validation);
         }
-
-        // if(textBox.validation && textBox.validation['pattern'])
-        // {
-        //     let patternObject = textBox.validation['pattern'];
-        //     console.log("pattern validation:", patternObject);
-        //     patternObject.value = JSON.parse(JSON.stringify(patternObject)).regex; 
-        //     console.log("unescape pattern validation:", patternObject);
-        // }
 
         return <Form.Group className="mb-3">
             {textBox.label && <Form.Label>{textBox.label}</Form.Label>}
