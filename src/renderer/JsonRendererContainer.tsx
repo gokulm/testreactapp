@@ -76,8 +76,6 @@ const JsonRendererContainer = () => {
     const componentFactory = new ComponentFactory(methods, rendererOnChange);
     componentFactory.addComponent("radiobuttonwithlist", (componentProps: any) =>
         renderRadioButtonWithList(componentProps));
-    componentFactory.addComponent("number", (componentProps: any) =>
-        renderNumber(componentProps));
     componentFactory.addComponent("ownershippercentage", (componentProps: any) =>
         renderOwnershipPercentage(componentProps));
 
@@ -102,26 +100,6 @@ const JsonRendererContainer = () => {
                     /> <label htmlFor={`${radioButtonListControl.name}_${d.value}`}> {d.label} </label></>
                 )
             })}</Form.Group>
-    }
-
-    const renderNumber = (componentProps: IComponentAttribute) => {
-        let number = () => {
-            const error = get((methods as any).formState.errors, componentProps.name);
-
-            return <Controller
-                control={(methods as any).control}
-                name={componentProps.name}
-                render={({ field }) =>
-                    <Form.Group className="mb-3">
-                        {componentProps.label && <Form.Label>{componentProps.label}</Form.Label>}
-                        <NumberFormat format={componentProps.format} className="form-control" placeholder={componentProps.format}
-                            {...(methods as any).register(componentProps.name, componentProps.validation)} {...field} />
-                        {error && <span className="alert">{error.message}</span>}
-                    </Form.Group>}
-            />
-        }
-
-        return <ConditionalRender componentAttr={componentProps}>{number()}</ConditionalRender>
     }
 
     return (
