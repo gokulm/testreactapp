@@ -1,12 +1,10 @@
-import { Controller, FormProvider, get, useForm } from "react-hook-form";
+import { FormProvider, get, useForm } from "react-hook-form";
 import JsonRenderer from "./JsonRenderer"
 import { IComponentAttribute, IRadioButtonListControl } from "./IComponentAttribute";
 import jsonschema1 from "./jsonschemas/jsonschema1.json";
 import apiData from './data.json'
 import ComponentFactory from "./ComponentFactory";
 import { Form } from "react-bootstrap";
-import NumberFormat from "react-number-format";
-import ConditionalRender from "./ConditionalRenderer";
 
 
 // todo: dynamic controls, flex multi col layout, aggregate, validators
@@ -55,17 +53,17 @@ const JsonRendererContainer = () => {
     //     }
     // }, [watchEmail]);
 
-    const rendererOnChange = (e: any) => {
-        if (e.target.name === "owners.0.email") {
-            console.log("handling on change differently. value: ", e.target.value);
-            if (!isValidEmail(e.target.value)) {
-                methods.setError("owners.0.email", { type: "manual", message: "invalid email" });
-            }
-            else {
-                methods.clearErrors("owners.0.email");
-            }
-        }
-    }
+    // const rendererOnChange = (e: any) => {
+    //     if (e.target.name === "owners.0.email") {
+    //         console.log("handling on change differently. value: ", e.target.value);
+    //         if (!isValidEmail(e.target.value)) {
+    //             methods.setError("owners.0.email", { type: "manual", message: "invalid email" });
+    //         }
+    //         else {
+    //             methods.clearErrors("owners.0.email");
+    //         }
+    //     }
+    // }
 
     const isValidEmail = (email: any) =>
         // eslint-disable-next-line no-useless-escape
@@ -73,7 +71,7 @@ const JsonRendererContainer = () => {
             email
         );
 
-    const componentFactory = new ComponentFactory(methods, rendererOnChange);
+    const componentFactory = new ComponentFactory(methods);
     componentFactory.addComponent("radiobuttonwithlist", (componentProps: any) =>
         renderRadioButtonWithList(componentProps));
     componentFactory.addComponent("ownershippercentage", (componentProps: any) =>

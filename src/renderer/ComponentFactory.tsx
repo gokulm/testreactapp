@@ -8,9 +8,9 @@ import { IComponentAttribute, IDropdownControl, IFlexControl, INumericControl, I
 
 class ComponentFactory {
     private _componentMapper: { [key: string]: Function } = {}
+    private _customValidators: { [key: string]: Function } = {}
 
-    constructor(private _methods: any,
-        private onChange?: Function) {
+    constructor(private _methods: any) {
         this._componentMapper = {
             "flex": (componentProps: any) => this.renderFlexContainer(componentProps),
             "text": (componentProps: any) => this.renderTextBox(componentProps),
@@ -19,6 +19,10 @@ class ComponentFactory {
             "submit": (componentProps: any) => this.renderSubmit(componentProps),
             "dynamic": (componentProps: any) => this.renderDynamicContainer(componentProps),
             "numeric": (componentProps: any) => this.renderNumeric(componentProps)
+        }
+
+        this._customValidators = {
+            "email": (value: any) => this.isValidEmail(value)
         }
     }
 
@@ -30,7 +34,7 @@ class ComponentFactory {
                 // console.log(`rendering flex. index: ${i}, type: ${c.type} baseIndex: ${componentProps.baseIndex}`);
                 if (flex.dynamicIndex !== undefined && c.dynamicName !== undefined) {
                     c.name = c.dynamicName.replace("[index]", flex.dynamicIndex.toString());
-                    console.log("replaced name ", c.name);
+                    // console.log("replaced name ", c.name);
                 }
                 return <div className="renderer-flex-item" key={i}> {this._componentMapper[c.type](c)} </div>
             })
@@ -41,6 +45,24 @@ class ComponentFactory {
         let textBox = componentProps as ITextBoxControl;
         // console.log("rendering type: ", componentProps.type);
         const error = get(this._methods.formState.errors, textBox.name);
+        if(textBox.validation && textBox.validation['customValidate'])
+        {
+            let customValidatorKey = textBox.validation['customValidate'];
+            console.log("custom validation:", customValidatorKey);
+            let customValidator = this._customValidators[customValidatorKey];
+            console.log("_customValidator:", customValidator);
+            textBox.validation['validate'] = customValidator;
+            console.log("custom validation: ", textBox.validation);
+        }
+
+        // if(textBox.validation && textBox.validation['pattern'])
+        // {
+        //     let patternObject = textBox.validation['pattern'];
+        //     console.log("pattern validation:", patternObject);
+        //     patternObject.value = JSON.parse(JSON.stringify(patternObject)).regex; 
+        //     console.log("unescape pattern validation:", patternObject);
+        // }
+
         return <Form.Group className="mb-3">
             {textBox.label && <Form.Label>{textBox.label}</Form.Label>}
             <Form.Control
@@ -99,6 +121,18 @@ class ComponentFactory {
 
     private renderSubmit(componentProps: IComponentAttribute) {
         return <input type="submit" />
+    }
+
+    private isValidEmail(email: any) {
+        console.log("email validation: ", email);
+        if(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+            email
+        ))
+        {
+            return true;
+        }
+
+        return "Invalid email"
     }
 
     public addComponent(key: string, rendererFunction: Function): void {

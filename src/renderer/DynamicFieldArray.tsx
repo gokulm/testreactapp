@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import ComponentFactory from "./ComponentFactory";
 import { IComponentAttribute, IFlexControl } from "./IComponentAttribute";
@@ -20,14 +21,14 @@ const DynamicFieldArray = (props: IProps) => {
     return (
         <>
             {fields.map((item, index) => {
-                console.log("fieldsarray index: ", index);
-                console.log(childComponent);
+                // console.log("fieldsarray index: ", index);
+                // console.log(childComponent);
                 childComponent.dynamicIndex = index;
                 return (
-                    <> <button type="button" onClick={() => remove(index)}>
+                    <Fragment key={index}> <button type="button" onClick={() => remove(index)}>
                         Delete
                     </button>
-                        {props.componentFactory.render(childComponent)}</>
+                        {props.componentFactory.render(childComponent)}</Fragment>
                 );
             })}
             <button

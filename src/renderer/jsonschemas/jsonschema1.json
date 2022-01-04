@@ -59,9 +59,10 @@
                 "validation": {
                     "required": { "value": true, "message": "This is required" },
                     "pattern": {
-                        "value": "\/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$\/i",
+                        "regex": "\/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$\/i",
                         "message": "Invalid email address"
-                    }
+                    },
+                    "customValidate": "email"
                 }
             },
             {
@@ -69,7 +70,7 @@
                 "name": "layout",
                 "class": "header",
                 "style": {
-                    "flex-flow": "row wrap",
+                    "flexFlow": "row wrap",
                     "margin": "0",
                     "border": "0",
                     "padding": "0"

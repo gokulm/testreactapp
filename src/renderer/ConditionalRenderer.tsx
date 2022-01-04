@@ -14,7 +14,7 @@ const ConditionalRender = (props: IProps) => {
 
     useEffect(() => {
         const subscription = methods.watch((value, { name }) => {
-            console.log("watch name value type", name, value);
+            // console.log("watch name value type", name, value);
 
             if (props.componentAttr.rule && props.componentAttr.rule.variable &&
                 props.componentAttr.rule.variable === name) {
