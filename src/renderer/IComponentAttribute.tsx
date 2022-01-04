@@ -1,15 +1,13 @@
-
 export interface IComponentAttribute {
     type: string;
     name: string;
     children: IComponentAttribute[];
-    required?: boolean;
     style?: any;
     label?: string;
     format?: string;
     rule?: IRule;
     validation?: any;
-    dynamicName?: string;
+    dynamicName?: string;   
 }
 
 export interface ITextBoxControl extends IComponentAttribute
@@ -17,7 +15,11 @@ export interface ITextBoxControl extends IComponentAttribute
     label: string;
     placeHolder: string;
     required?: boolean;
-    validation?: any;
+}
+
+export interface INumericControl extends ITextBoxControl
+{
+    format?: string;
 }
 
 export interface IFlexControl extends IComponentAttribute
@@ -27,6 +29,7 @@ export interface IFlexControl extends IComponentAttribute
 
 export interface IRadioButtonControl extends IComponentAttribute
 {
+    required?: boolean;
     labelValues: ILabelValuePair[]
 }
 
@@ -37,6 +40,7 @@ export interface IRadioButtonListControl extends IRadioButtonControl
 
 export interface IDropdownControl extends IComponentAttribute
 {
+    required?: boolean;
     labelValues: ILabelValuePair[],
     placeHolder: string;
 }

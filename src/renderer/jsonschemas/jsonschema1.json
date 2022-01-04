@@ -108,7 +108,7 @@
                 ]
             },
             {
-                "type": "number",
+                "type": "numeric",
                 "required": true,
                 "format": "##-#######",
                 "name": "business.taxId",

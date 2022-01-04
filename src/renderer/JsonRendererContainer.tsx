@@ -1,4 +1,4 @@
-import { Controller, FormProvider, get, useFieldArray, useForm } from "react-hook-form";
+import { Controller, FormProvider, get, useForm } from "react-hook-form";
 import JsonRenderer from "./JsonRenderer"
 import { IComponentAttribute, IRadioButtonListControl } from "./IComponentAttribute";
 import jsonschema1 from "./jsonschemas/jsonschema1.json";
@@ -6,9 +6,7 @@ import apiData from './data.json'
 import ComponentFactory from "./ComponentFactory";
 import { Form } from "react-bootstrap";
 import NumberFormat from "react-number-format";
-import DynamicFieldArray from "./DynamicFieldArray";
 import ConditionalRender from "./ConditionalRenderer";
-import { useEffect } from "react";
 
 
 // todo: dynamic controls, flex multi col layout, aggregate, validators
@@ -18,11 +16,11 @@ const JsonRendererContainer = () => {
     const onSubmit = (testData: any) => {
         console.log("errors:", methods.formState.errors);
 
-        if (!isValidEmail(watchEmail)) {
-            console.log("triggered email validation");
-            methods.setError("owners.0.email", { type: "manual", message: "invalid email" });
-            return;
-        }
+        // if (!isValidEmail(watchEmail)) {
+        //     console.log("triggered email validation");
+        //     methods.setError("owners.0.email", { type: "manual", message: "invalid email" });
+        //     return;
+        // }
 
         let coOwners = methods.getValues("coOwners");
         let ownershipPercentage = 0;
@@ -41,7 +39,7 @@ const JsonRendererContainer = () => {
         console.log("submitted form: ", testData);
     }
 
-    const watchEmail = methods.watch("owners.0.email");
+    // const watchEmail = methods.watch("owners.0.email");
     // const watchCoOwners = methods.watch("coOwners");
 
 
@@ -80,15 +78,10 @@ const JsonRendererContainer = () => {
         renderRadioButtonWithList(componentProps));
     componentFactory.addComponent("number", (componentProps: any) =>
         renderNumber(componentProps));
-    componentFactory.addComponent("dynamic", (componentProps: any) =>
-        renderDynamicContainer(componentProps));
     componentFactory.addComponent("ownershippercentage", (componentProps: any) =>
         renderOwnershipPercentage(componentProps));
 
-    const renderDynamicContainer = (componentProps: IComponentAttribute) => {
-        return <DynamicFieldArray component={componentProps} componentFactory={componentFactory} />
-    }
-
+  
     const renderOwnershipPercentage = (componentProps: IComponentAttribute) => {
         let error = get(methods.formState.errors, "coOwners");
         return <>{error && <span className="alert">{error.message}</span>}</>
@@ -117,7 +110,7 @@ const JsonRendererContainer = () => {
 
             return <Controller
                 control={(methods as any).control}
-                name="business.taxId"
+                name={componentProps.name}
                 render={({ field }) =>
                     <Form.Group className="mb-3">
                         {componentProps.label && <Form.Label>{componentProps.label}</Form.Label>}

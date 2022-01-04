@@ -1,7 +1,10 @@
 import { Fragment } from "react";
 import { Form } from "react-bootstrap";
-import { get } from "react-hook-form";
-import { IComponentAttribute, IDropdownControl, IFlexControl, IRadioButtonControl, ITextBoxControl } from "./IComponentAttribute";
+import { Controller, get } from "react-hook-form";
+import NumberFormat from "react-number-format";
+import ConditionalRender from "./ConditionalRenderer";
+import DynamicFieldArray from "./DynamicFieldArray";
+import { IComponentAttribute, IDropdownControl, IFlexControl, INumericControl, IRadioButtonControl, ITextBoxControl } from "./IComponentAttribute";
 
 class ComponentFactory {
     private _componentMapper: { [key: string]: Function } = {}
@@ -13,8 +16,9 @@ class ComponentFactory {
             "text": (componentProps: any) => this.renderTextBox(componentProps),
             "dropdown": (componentProps: any) => this.renderDropDown(componentProps),
             "radiobuttons": (componentProps: any) => this.renderRadioButtons(componentProps),
-            "submit": (componentProps: any) => this.renderSubmit(componentProps)
-            // "dynamic": (componentProps: any) => this.renderDynamicContainer(componentProps)
+            "submit": (componentProps: any) => this.renderSubmit(componentProps),
+            "dynamic": (componentProps: any) => this.renderDynamicContainer(componentProps),
+            "numeric": (componentProps: any) => this.renderNumeric(componentProps)
         }
     }
 
@@ -42,10 +46,25 @@ class ComponentFactory {
             <Form.Control
                 {...this._methods.register(textBox.name, textBox.validation)}
                 placeholder={textBox.placeHolder}
-            // onChange={componentProps.enableOnChange && this.onChange} 
             />
             {error && <span className="alert">{error.message}</span>}
         </Form.Group>
+    }
+
+    private renderNumeric(componentProps: IComponentAttribute) {
+        let numericControl = componentProps as INumericControl;
+        const error = get(this._methods.formState.errors, numericControl.name);
+        return <ConditionalRender componentAttr={numericControl}><Controller
+            control={this._methods.control}
+            name={numericControl.name}
+            render={({ field }) =>
+                <Form.Group className="mb-3">
+                    {numericControl.label && <Form.Label>{numericControl.label}</Form.Label>}
+                    <NumberFormat format={numericControl.format} className="form-control" placeholder={numericControl.format}
+                        {...this._methods.register(numericControl.name, numericControl.validation)} {...field} />
+                    {error && <span className="alert">{error.message}</span>}
+                </Form.Group>} />
+        </ConditionalRender>
     }
 
     private renderDropDown(componentProps: IComponentAttribute) {
@@ -72,6 +91,10 @@ class ComponentFactory {
                     /> <label htmlFor={`${radioButtonControl.name}_${d.value}`}> {d.label} </label></Fragment>
                 )
             })}</Form.Group>
+    }
+
+    private renderDynamicContainer(componentProps: IComponentAttribute) {
+        return <DynamicFieldArray component={componentProps} componentFactory={this} />
     }
 
     private renderSubmit(componentProps: IComponentAttribute) {
