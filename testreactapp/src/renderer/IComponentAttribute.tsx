@@ -1,38 +1,54 @@
-import { RulesLogic } from "json-logic-js";
-
 export interface IComponentAttribute {
     type: string;
     name: string;
     children: IComponentAttribute[];
-    required?: boolean;
-    class?: string;
-    id?: string;
-    placeHolder?: string;
     style?: any;
-    defaultValue?: string;
-    dropdownValues?: any[];
-    label?: string,
-    radioButtons?: IRadioButton[],
-    radioButtonChecklist?: string[],
-    format?: string,
-    rule?: IRule,
-    baseIndex?: number
-    attributes?: any,
-    enableOnChange?: boolean,
-    validation?: any
+    label?: string;
+    format?: string;
+    rule?: IRule;
+    validation?: any;
+    dynamicName?: string;   
 }
 
-export interface ITextBoxAttribute
+export interface ITextBoxControl extends IComponentAttribute
 {
     label: string;
     placeHolder: string;
     required?: boolean;
 }
 
-export interface IRadioButton
+export interface INumericControl extends ITextBoxControl
 {
-    value: string,
-    label: string
+    format?: string;
+}
+
+export interface IFlexControl extends IComponentAttribute
+{
+    dynamicIndex?: number;
+}
+
+export interface IRadioButtonControl extends IComponentAttribute
+{
+    required?: boolean;
+    labelValues: ILabelValuePair[]
+}
+
+export interface IRadioButtonListControl extends IRadioButtonControl
+{
+    checklist: string[],
+}
+
+export interface IDropdownControl extends IComponentAttribute
+{
+    required?: boolean;
+    labelValues: ILabelValuePair[],
+    placeHolder: string;
+}
+
+export interface ILabelValuePair 
+{
+    label: string,
+    value: string
 }
 
 export interface IRule

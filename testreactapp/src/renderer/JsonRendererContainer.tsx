@@ -1,14 +1,10 @@
-import { Controller, FormProvider, get, useFieldArray, useForm } from "react-hook-form";
+import { FormProvider, get, useForm } from "react-hook-form";
 import JsonRenderer from "./JsonRenderer"
-import { IComponentAttribute } from "./IComponentAttribute";
+import { IComponentAttribute, IRadioButtonListControl } from "./IComponentAttribute";
 import jsonschema1 from "./jsonschemas/jsonschema1.json";
 import apiData from './data.json'
 import ComponentFactory from "./ComponentFactory";
 import { Form } from "react-bootstrap";
-import NumberFormat from "react-number-format";
-import DynamicFieldArray from "./DynamicFieldArray";
-import ConditionalRender from "./ConditionalRenderer";
-import { useEffect } from "react";
 
 
 // todo: dynamic controls, flex multi col layout, aggregate, validators
@@ -18,11 +14,11 @@ const JsonRendererContainer = () => {
     const onSubmit = (testData: any) => {
         console.log("errors:", methods.formState.errors);
 
-        if (!isValidEmail(watchEmail)) {
-            console.log("triggered email validation");
-            methods.setError("owners.0.email", { type: "manual", message: "invalid email" });
-            return;
-        }
+        // if (!isValidEmail(watchEmail)) {
+        //     console.log("triggered email validation");
+        //     methods.setError("owners.0.email", { type: "manual", message: "invalid email" });
+        //     return;
+        // }
 
         let coOwners = methods.getValues("coOwners");
         let ownershipPercentage = 0;
@@ -41,7 +37,7 @@ const JsonRendererContainer = () => {
         console.log("submitted form: ", testData);
     }
 
-    const watchEmail = methods.watch("owners.0.email");
+    // const watchEmail = methods.watch("owners.0.email");
     // const watchCoOwners = methods.watch("coOwners");
 
 
@@ -57,17 +53,17 @@ const JsonRendererContainer = () => {
     //     }
     // }, [watchEmail]);
 
-    const rendererOnChange = (e: any) => {
-        if (e.target.name === "owners.0.email") {
-            console.log("handling on change differently. value: ", e.target.value);
-            if (!isValidEmail(e.target.value)) {
-                methods.setError("owners.0.email", { type: "manual", message: "invalid email" });
-            }
-            else {
-                methods.clearErrors("owners.0.email");
-            }
-        }
-    }
+    // const rendererOnChange = (e: any) => {
+    //     if (e.target.name === "owners.0.email") {
+    //         console.log("handling on change differently. value: ", e.target.value);
+    //         if (!isValidEmail(e.target.value)) {
+    //             methods.setError("owners.0.email", { type: "manual", message: "invalid email" });
+    //         }
+    //         else {
+    //             methods.clearErrors("owners.0.email");
+    //         }
+    //     }
+    // }
 
     const isValidEmail = (email: any) =>
         // eslint-disable-next-line no-useless-escape
@@ -75,74 +71,33 @@ const JsonRendererContainer = () => {
             email
         );
 
-    const componentFactory = new ComponentFactory(methods, rendererOnChange);
+    const componentFactory = new ComponentFactory(methods);
     componentFactory.addComponent("radiobuttonwithlist", (componentProps: any) =>
         renderRadioButtonWithList(componentProps));
-    componentFactory.addComponent("number", (componentProps: any) =>
-        renderNumber(componentProps));
-    componentFactory.addComponent("dynamic", (componentProps: any) =>
-        renderDynamicContainer(componentProps));
     componentFactory.addComponent("ownershippercentage", (componentProps: any) =>
         renderOwnershipPercentage(componentProps));
-    const dynamicFormDictionary: { [key: string]: IComponentAttribute } = {};
 
-    const renderDynamicContainer = (componentProps: IComponentAttribute) => {
-
-        let count = ((methods as any).getValues(componentProps.name) as []).length;
-        // console.log("dynamic prop length: ", count);
-        let childComponent = componentProps.children[0];
-        dynamicFormDictionary[componentProps.name] = childComponent;
-
-        return (
-            <>
-                <DynamicFieldArray name={componentProps.name} label={componentProps.label || ""}
-                    componentFactory={componentFactory} dynamicFormDictionary={dynamicFormDictionary} />
-            </>
-        )
-    }
-
+  
     const renderOwnershipPercentage = (componentProps: IComponentAttribute) => {
         let error = get(methods.formState.errors, "coOwners");
         return <>{error && <span className="alert">{error.message}</span>}</>
     }
 
-
     const renderRadioButtonWithList = (componentProps: IComponentAttribute) => {
+        let radioButtonListControl = componentProps as IRadioButtonListControl;
         return <Form.Group className="mb-3">
-            {componentProps.label && <Form.Label>{componentProps.label}</Form.Label>} <br />
+            {radioButtonListControl.label && <Form.Label>{radioButtonListControl.label}</Form.Label>} <br />
             <ul>
-                {componentProps.radioButtonChecklist?.map((c, i) => <li key={i}>{c}</li>)}
+                {radioButtonListControl.checklist.map((c, i) => <li key={i}>{c}</li>)}
             </ul>
-            {componentProps.radioButtons?.map(d => {
+            {radioButtonListControl.labelValues.map(d => {
                 return (
-                    <><input type="radio" value={d.value} id={`${componentProps.name}_${d.value}`}
-                        {...(methods as any).register(componentProps.name, { required: false })}
-                        defaultChecked={(methods as any).getValues(componentProps.name) === d.value}
-                    /> <label htmlFor={`${componentProps.name}_${d.value}`}> {d.label} </label></>
+                    <><input type="radio" value={d.value} id={`${radioButtonListControl.name}_${d.value}`}
+                        {...(methods as any).register(radioButtonListControl.name, { required: false })}
+                        defaultChecked={(methods as any).getValues(radioButtonListControl.name) === d.value}
+                    /> <label htmlFor={`${radioButtonListControl.name}_${d.value}`}> {d.label} </label></>
                 )
             })}</Form.Group>
-    }
-
-    const renderNumber = (componentProps: IComponentAttribute) => {
-
-        let number = () => {
-            const error = get((methods as any).formState.errors, componentProps.name);
-
-            return <Controller
-                control={(methods as any).control}
-                name="business.taxId"
-                render={({ field }) =>
-                    <Form.Group className="mb-3">
-                        {componentProps.label && <Form.Label>{componentProps.label}</Form.Label>}
-                        <NumberFormat format={componentProps.format} className="form-control" placeholder={componentProps.format}
-                            {...(methods as any).register(componentProps.name, { required: { value: componentProps.required, message: "Please enter Business Tax ID" } })} {...field} />
-                        {error && <span className="alert">{error.message}</span>}
-                    </Form.Group>}
-            />
-        }
-
-        // console.log("going to render conditional render... ");
-        return <ConditionalRender componentAttr={componentProps}>{number()}</ConditionalRender>
     }
 
     return (
