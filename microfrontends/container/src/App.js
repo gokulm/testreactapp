@@ -7,6 +7,7 @@ import About from './About';
 const {
   REACT_APP_BROWSE_HOST: browseHost,
   REACT_APP_RESTAURANT_HOST: restaurantHost,
+  REACT_APP_SPECIALITY_HOST: specialityHost,
 } = process.env;
 
 let numRestaurants = 0;
@@ -27,6 +28,9 @@ const Browse2 = ({ history }) => (
 const Restaurant = ({ history }) => (
   <MicroFrontend history={history} host={restaurantHost} name="Restaurant" />
 );
+const Indian = ({ history }) => (
+  <MicroFrontend history={history} host={specialityHost} name="Indian" />
+);
 const Random = () => <Redirect to={`/restaurant/${getRandomRestaurantId()}`} />;
 
 const App = () => (
@@ -39,6 +43,7 @@ const App = () => (
         <Route exact path="/random" render={Random} />
         <Route exact path="/about" render={About} />
         <Route exact path="/browse2" component={Browse2} />
+        <Route exact path="/indian" component={Indian} />
       </Switch>
     </React.Fragment>
   </BrowserRouter>
