@@ -5,7 +5,7 @@ import App from './App';
 import { unregister } from './registerServiceWorker';
 import Loadable from './Loadable';
 
-const Indian = Loadable(lazy(() => import(/* webpackChunkName: "Indian" */'./IndianRestaurant')));
+const Indian = Loadable(lazy(() => import(/* webpackChunkName: "Indian" */'./Test')));
 
 
 window.renderRestaurant = (containerId, history) => {
@@ -20,7 +20,8 @@ window.unmountRestaurant = containerId => {
   ReactDOM.unmountComponentAtNode(document.getElementById(containerId));
 };
 
-window.renderIndianRestaurant = (containerId, history) => {
+window.renderIndian = (containerId, history) => {
+  console.log("inside window.renderIndian. containerId: ", containerId);
   ReactDOM.render(
     <Indian />,
     document.getElementById(containerId),
@@ -28,7 +29,7 @@ window.renderIndianRestaurant = (containerId, history) => {
   unregister();
 };
 
-window.unmountIndianRestaurant = containerId => {
+window.unmountIndian = containerId => {
   ReactDOM.unmountComponentAtNode(document.getElementById(containerId));
 };
 

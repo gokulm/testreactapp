@@ -29,7 +29,7 @@ const Restaurant = ({ history }) => (
   <MicroFrontend history={history} host={restaurantHost} name="Restaurant" />
 );
 const Indian = ({ history }) => (
-  <MicroFrontend history={history} host={specialityHost} name="Indian" />
+  <MicroFrontend history={history} host={specialityHost} name="Indian" isSpeciality />
 );
 const Random = () => <Redirect to={`/restaurant/${getRandomRestaurantId()}`} />;
 

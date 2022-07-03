@@ -87,7 +87,7 @@ class App2 extends React.Component {
     return (
       <Router history={this.props.history || defaultHistory}>
         <MainColumn>
-          testing app2
+          testing app2 1
         </MainColumn>
       </Router>
     );
