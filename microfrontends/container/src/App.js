@@ -6,8 +6,7 @@ import About from './About';
 
 const {
   REACT_APP_BROWSE_HOST: browseHost,
-  REACT_APP_RESTAURANT_HOST: restaurantHost,
-  REACT_APP_SPECIALITY_HOST: specialityHost,
+  REACT_APP_RESTAURANT_HOST: restaurantHost
 } = process.env;
 
 let numRestaurants = 0;
@@ -22,14 +21,11 @@ const getRandomRestaurantId = () =>
 const Browse = ({ history }) => (
   <MicroFrontend history={history} host={browseHost} name="Browse" />
 );
-const Browse2 = ({ history }) => (
-  <MicroFrontend history={history} host={browseHost} name="Browse2" />
-);
 const Restaurant = ({ history }) => (
   <MicroFrontend history={history} host={restaurantHost} name="Restaurant" />
 );
 const Indian = ({ history }) => (
-  <MicroFrontend history={history} host={specialityHost} name="Indian" isSpeciality />
+  <MicroFrontend history={history} host={browseHost} name="Indian" isSpeciality />
 );
 const Random = () => <Redirect to={`/restaurant/${getRandomRestaurantId()}`} />;
 
@@ -42,7 +38,6 @@ const App = () => (
         <Route exact path="/restaurant/:id" component={Restaurant} />
         <Route exact path="/random" render={Random} />
         <Route exact path="/about" render={About} />
-        <Route exact path="/browse2" component={Browse2} />
         <Route exact path="/indian" component={Indian} />
       </Switch>
     </React.Fragment>

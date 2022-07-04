@@ -4,8 +4,10 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { unregister } from './registerServiceWorker';
 import Loadable from './Loadable';
+// import Test from './Test';
 
 const Indian = Loadable(lazy(() => import(/* webpackChunkName: "Indian" */'./Test')));
+// const Indian = Loadable(lazy(() => import(/* webpackChunkName: "Indian" */'./IndianRestaurant')));
 
 
 window.renderRestaurant = (containerId, history) => {
@@ -24,6 +26,8 @@ window.renderIndian = (containerId, history) => {
   console.log("inside window.renderIndian. containerId: ", containerId);
   ReactDOM.render(
     <Indian />,
+    // <div>testing div</div>,
+    // <Test />,
     document.getElementById(containerId),
   );
   unregister();

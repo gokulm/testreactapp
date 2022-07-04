@@ -2,12 +2,10 @@ import 'react-app-polyfill/ie11';
 import React, { lazy } from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-// import App2 from './App2';
 import { unregister } from './registerServiceWorker';
 import Loadable from './Loadable';
 
-// const App3 = React.lazy(() => import('./App'));
-const App2 = Loadable(lazy(() => import(/* webpackChunkName: "browse2" */'./App2')));
+const Indian = Loadable(lazy(() => import(/* webpackChunkName: "Indian" */'./IndianRestaurant')));
 
 
 window.renderBrowse = (containerId, history) => {
@@ -22,15 +20,15 @@ window.unmountBrowse = containerId => {
   ReactDOM.unmountComponentAtNode(document.getElementById(containerId));
 };
 
-
-window.renderBrowse2 = (containerId, history) => {
+window.renderIndian = (containerId, history) => {
+  console.log("inside window.renderIndian. containerId: ", containerId);
   ReactDOM.render(
-    <App2 history={history} />,
+    <Indian />,
     document.getElementById(containerId),
   );
   unregister();
 };
 
-window.unmountBrowse2 = containerId => {
+window.unmountIndian = containerId => {
   ReactDOM.unmountComponentAtNode(document.getElementById(containerId));
 };

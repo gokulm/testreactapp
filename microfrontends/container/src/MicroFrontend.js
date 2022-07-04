@@ -21,31 +21,14 @@ class MicroFrontend extends React.Component {
                 document.head.appendChild(script);
             });
 
-        if (name === "Browse2") {
-            fetch(`${host}/asset-manifest.json`)
-                .then(res => res.json())
-                .then(manifest => {
-                    const script = document.createElement('script');
-                    script.id = scriptId;
-                    script.crossOrigin = '';
-                    script.src = `${host}${manifest['browse2.js']}`;
-                    script.onload = this.renderMicroFrontend;
-                    document.head.appendChild(script);
-                });
-        }
-
         if (isSpeciality) {
-            // console.log("loading speciality name: ", name);
-            // console.log("loading speciality host: ", host);
             fetch(`${host}/asset-manifest.json`)
                 .then(res => res.json())
                 .then(manifest => {
-                    // console.log("manifest: ", manifest);
                     const script = document.createElement('script');
                     script.id = scriptId;
                     script.crossOrigin = '';
                     let manifestName = `${name}.js`
-                        // console.log("manifestName: ", manifestName);
                     let scriptSrc = `${host}${manifest[manifestName]}`;
                     console.log("scriptSrc: ", scriptSrc);
                     script.src = scriptSrc;
