@@ -27,6 +27,9 @@ const Restaurant = ({ history }) => (
 const Indian = ({ history }) => (
   <MicroFrontend history={history} host={browseHost} name="Indian" isSpeciality />
 );
+const Japanese = ({ history }) => (
+  <MicroFrontend history={history} host={browseHost} name="Japanese" isSpeciality />
+);
 const Random = () => <Redirect to={`/restaurant/${getRandomRestaurantId()}`} />;
 
 const App = () => (
@@ -39,6 +42,7 @@ const App = () => (
         <Route exact path="/random" render={Random} />
         <Route exact path="/about" render={About} />
         <Route exact path="/indian" component={Indian} />
+        <Route exact path="/japanese" component={Japanese} />
       </Switch>
     </React.Fragment>
   </BrowserRouter>

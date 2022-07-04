@@ -21,6 +21,9 @@ const AppHeader = () => (
         <li>
           <NavLink to="/indian">Indian</NavLink>
         </li>
+        <li>
+          <NavLink to="/japanese">Japanese</NavLink>
+        </li>
       </ol>
     </nav>
   </header>

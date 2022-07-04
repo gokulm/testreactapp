@@ -1,7 +1,7 @@
 import React from 'react';
 import RestaurantDetails from './RestaurantDetails';
 
-class Restaurant extends React.Component {
+class JapaneseRestaurant extends React.Component {
   constructor(props) {
     super(props);
 
@@ -14,9 +14,8 @@ class Restaurant extends React.Component {
 
   componentDidMount() {
     const host = process.env.REACT_APP_CONTENT_HOST;
-    const id = this.props.match.params.id;
 
-    fetch(`${host}/restaurants/${id}.json`)
+    fetch(`${host}/restaurants/9.json`)
       .then(result => result.json())
       .then(restaurant => {
         this.setState({
@@ -44,4 +43,4 @@ class Restaurant extends React.Component {
   }
 }
 
-export default Restaurant;
+export default JapaneseRestaurant;

@@ -6,6 +6,8 @@ import { unregister } from './registerServiceWorker';
 import Loadable from './Loadable';
 
 const Indian = Loadable(lazy(() => import(/* webpackChunkName: "Indian" */'./IndianRestaurant')));
+const Japanese = Loadable(lazy(() => import(/* webpackChunkName: "Japanese" */'./JapaneseRestaurant')));
+
 
 
 window.renderBrowse = (containerId, history) => {
@@ -30,5 +32,18 @@ window.renderIndian = (containerId, history) => {
 };
 
 window.unmountIndian = containerId => {
+  ReactDOM.unmountComponentAtNode(document.getElementById(containerId));
+};
+
+window.renderJapanese = (containerId, history) => {
+  console.log("inside window.renderIndian. containerId: ", containerId);
+  ReactDOM.render(
+    <Japanese />,
+    document.getElementById(containerId),
+  );
+  unregister();
+};
+
+window.unmountJapanese = containerId => {
   ReactDOM.unmountComponentAtNode(document.getElementById(containerId));
 };
